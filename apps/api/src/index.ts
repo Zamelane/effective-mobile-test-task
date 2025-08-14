@@ -1,10 +1,15 @@
 import { dbInstance } from "@effective-mobile-tt/db/src/index";
 import boxen from "boxen";
 import express from "express";
+import { authPlugin } from "./middlewares/auth";
 
 const PORT = 3000;
 
 const app = express();
+
+app.use(authPlugin)
+
+app.use(express.static('../../web/build'))
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
