@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./apps/api" },
+    { "path": "./apps/web" },
+    { "path": "./packages/db/src/index.ts" },
+    { "path": "./packages/shared/src/index.ts" },
+  ],
+  "compilerOptions": {
+    "composite": true,
+  }
+}
