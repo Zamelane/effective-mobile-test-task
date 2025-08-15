@@ -1,19 +1,32 @@
 import { dbInstance } from "@effective-mobile-tt/db/src/index";
 import boxen from "boxen";
 import express from "express";
-import { authPlugin } from "./middlewares/auth";
+import cors from "cors";
+import { checkAuthPlugin, jwtReader } from "./middlewares/auth";
+import { env } from "./config/env";
+import { errorHandler } from "./middlewares/error";
+import { notFoundHandler } from "./middlewares/notFound";
+import { apiRouter } from "./routes";
 
-const PORT = 3000;
+const PORT = env.API_PORT;
 
 const app = express();
 
-app.use(authPlugin)
-
-app.use(express.static('../../web/build'))
+app
+  .use(cors({
+    origin: '*'
+  }))
+  .use(jwtReader)
+  .use(checkAuthPlugin)
+  .use(express.static('../../web/build'))
+  .use('/api', apiRouter)
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send('Hello World!').status(200);
 });
+
+app.use(notFoundHandler)
+  .use(errorHandler)
 
 async function main() {
   try {
@@ -25,10 +38,9 @@ async function main() {
 
   app.listen(PORT, () => {
     console.log(
-      `\n\n`
-      + boxen(
+      boxen(
         `🚀 Server running at http://127.0.0.1:${PORT}`,
-        { title: 'Server info', padding: 1, borderColor: 'green' }
+        { title: 'Server info', padding: 1, margin: { top: 2, bottom: 2 }, borderColor: 'green' }
       )
     );
   });

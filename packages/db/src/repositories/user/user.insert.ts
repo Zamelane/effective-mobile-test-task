@@ -1,5 +1,5 @@
 import { UserRepository } from ".";
-import { ConflictError, type UserRegistrationZod } from '@effective-mobile-tt/shared';
+import { ConflictError, type UserRegistrationZod } from '@effective-mobile-tt/shared/src/index';
 import { DBUser, users } from "../../models";
 
 export async function insert(

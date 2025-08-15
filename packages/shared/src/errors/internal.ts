@@ -10,6 +10,12 @@ export class ApiError extends Error {
   }
 }
 
+export class BadRequestError extends ApiError {
+  constructor(message = 'Bad Request', details?: unknown) {
+    super(400, 'BAD_REQUEST', message, details)
+  }
+}
+
 export class UnauthorizedError extends ApiError {
   constructor(message = 'Unauthorized', details?: unknown) {
     super(401, 'UNAUTHORIZED', message, details)
