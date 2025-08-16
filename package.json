@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "prepare": "npm run env:sync",
     "env:sync": "npx tsx scripts/check-env-exists.ts",
     "api:dev": "cd ./apps/api && npm run dev",
     "db:migrate": "cd ./packages/db && npx drizzle-kit migrate",
@@ -22,6 +21,10 @@
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
     "dotenv": "^17.2.1",
+    "findup-sync": "^5.0.0",
     "tsx": "^4.20.4"
+  },
+  "devDependencies": {
+    "@types/findup-sync": "^4.0.5"
   }
 }

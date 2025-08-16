@@ -1,8 +1,15 @@
 import { z } from 'zod'
 import dotenv from 'dotenv'
 import boxen from 'boxen'
+import findupSync from 'findup-sync'
 
-dotenv.config({ quiet: true })
+const envFile = findupSync(".env"); // Находит ближайший .env выше в дереве каталогов
+
+if (envFile) {
+  dotenv.config({ quiet: true, path: envFile });
+} else {
+  console.error(".env не найден!");
+}
 
 const envSchema = z.object({
   NODE_ENV: z
