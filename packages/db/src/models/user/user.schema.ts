@@ -1,5 +1,17 @@
-import { boolean, date, pgEnum, pgTable, serial, timestamp, varchar } from 'drizzle-orm/pg-core'
-import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-typebox'
+import {
+  boolean,
+  date,
+  pgEnum,
+  pgTable,
+  serial,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core'
+import {
+  createInsertSchema,
+  createSelectSchema,
+  createUpdateSchema,
+} from 'drizzle-typebox'
 
 export const roleEnum = pgEnum('role', ['admin', 'user'])
 

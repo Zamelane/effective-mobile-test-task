@@ -1,12 +1,15 @@
-import { ApiError, InternalServerError } from "@effective-mobile-tt/shared/src/errors/internal";
-import { Request, Response, NextFunction } from "express";
-import { env } from "../config/env";
+import {
+  ApiError,
+  InternalServerError,
+} from '@effective-mobile-tt/shared/src/errors/internal'
+import { Request, Response, NextFunction } from 'express'
+import { env } from '../config/env'
 
 export function errorHandler(
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   let error: ApiError
 
@@ -24,6 +27,6 @@ export function errorHandler(
       message: error.message,
       details: error.details,
       stack: env.NODE_ENV === 'development' ? error.stack : undefined,
-    }
+    },
   })
 }

@@ -1,11 +1,11 @@
-import { asc, getTableColumns } from "drizzle-orm";
-import { UserRepository } from ".";
-import { users } from "../../models";
+import { asc, getTableColumns } from 'drizzle-orm'
+import { UserRepository } from '.'
+import { users } from '../../models'
 
 export async function list(
   this: UserRepository,
   page: number = 1,
-  pageSize: number = 8
+  pageSize: number = 8,
 ) {
   const { password, email, ...nonPwCols } = getTableColumns(users)
   const usersList = await this.db

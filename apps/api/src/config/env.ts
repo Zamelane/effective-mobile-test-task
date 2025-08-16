@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import dotenv from 'dotenv';
-import boxen from 'boxen';
+import { z } from 'zod'
+import dotenv from 'dotenv'
+import boxen from 'boxen'
 
 dotenv.config({ quiet: true })
 
@@ -26,7 +26,12 @@ if (!envParsed.success) {
   })
 
   console.error(
-    boxen(errors.join('\n'), { title: '.env errors', padding: 1, margin: { top: 2, bottom: 2 }, borderColor: 'red' })
+    boxen(errors.join('\n'), {
+      title: '.env errors',
+      padding: 1,
+      margin: { top: 2, bottom: 2 },
+      borderColor: 'red',
+    }),
   )
 
   process.exit(1)

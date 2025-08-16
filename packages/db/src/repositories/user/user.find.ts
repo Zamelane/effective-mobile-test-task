@@ -1,11 +1,8 @@
-import { eq } from "drizzle-orm";
-import { UserRepository } from ".";
-import { users } from "../../models";
+import { eq } from 'drizzle-orm'
+import { UserRepository } from '.'
+import { users } from '../../models'
 
-export async function findByCredentials(
-  this: UserRepository,
-  email: string
-) {
+export async function findByCredentials(this: UserRepository, email: string) {
   const result = await this.db
     .select()
     .from(users)

@@ -1,31 +1,36 @@
-import { BadRequestError, NotFoundError } from '@effective-mobile-tt/shared/src';
-import express, { Request } from 'express';
-import z from 'zod';
-import { UserService } from '../../services/user';
+import { BadRequestError, NotFoundError } from '@effective-mobile-tt/shared/src'
+import express, { Request } from 'express'
+import z from 'zod'
+import { UserService } from '../../services/user'
 
 const paramsZodSchema = z.object({
-  id: z.coerce.number().nonnegative()
+  id: z.coerce.number().nonnegative(),
 })
 
-export const userBanRoute = express.Router()
+export const userBanRoute = express
+  .Router()
   .post('/users/:id/ban', async (req, res) => {
-    res.json({
-      userInfo: await banRouteHandler(req, false)
-    }).status(200)
+    res
+      .json({
+        userInfo: await banRouteHandler(req, false),
+      })
+      .status(200)
   })
   .post('/users/:id/unban', async (req, res) => {
-    res.json({
-      userInfo: await banRouteHandler(req, true)
-    }).status(200)
+    res
+      .json({
+        userInfo: await banRouteHandler(req, true),
+      })
+      .status(200)
   })
 
 function paramsValidate(req: Request) {
-  const paramsValidationResult = paramsZodSchema.safeParse(req.params);
+  const paramsValidationResult = paramsZodSchema.safeParse(req.params)
 
   if (!paramsValidationResult.success) {
     const errors = paramsValidationResult.error.flatten()
     throw new BadRequestError('Validation error', {
-      fieldErrors: errors
+      fieldErrors: errors,
     })
   }
 

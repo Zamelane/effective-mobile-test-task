@@ -1,14 +1,20 @@
-import { BadRequestError, NotFoundError, UserChangeRoleZodSchema, UserUpdateZodSchema } from '@effective-mobile-tt/shared/src';
-import express, { Request } from 'express';
-import z from 'zod';
-import { UserService } from '../../services/user';
-import { db } from '@effective-mobile-tt/db/src';
+import {
+  BadRequestError,
+  NotFoundError,
+  UserChangeRoleZodSchema,
+  UserUpdateZodSchema,
+} from '@effective-mobile-tt/shared/src'
+import express, { Request } from 'express'
+import z from 'zod'
+import { UserService } from '../../services/user'
+import { db } from '@effective-mobile-tt/db/src'
 
 const paramsZodSchema = z.object({
-  id: z.coerce.number().nonnegative()
+  id: z.coerce.number().nonnegative(),
 })
 
-export const userUpdateRoute = express.Router()
+export const userUpdateRoute = express
+  .Router()
   .post('/users/:id', async (req, res) => {
     const params = paramsValidate(req)
     const body = await bodyValidate(req)
@@ -21,18 +27,20 @@ export const userUpdateRoute = express.Router()
 
     const { password, ...userInfo } = user
 
-    res.json({
-      userInfo
-    }).status(200)
+    res
+      .json({
+        userInfo,
+      })
+      .status(200)
   })
 
 function paramsValidate(req: Request) {
-  const paramsValidationResult = paramsZodSchema.safeParse(req.params);
+  const paramsValidationResult = paramsZodSchema.safeParse(req.params)
 
   if (!paramsValidationResult.success) {
     const errors = paramsValidationResult.error.flatten()
     throw new BadRequestError('Validation error', {
-      fieldErrors: errors
+      fieldErrors: errors,
     })
   }
 
@@ -47,12 +55,12 @@ async function bodyValidate(req: Request) {
     bodyValidationSchema.extend(UserChangeRoleZodSchema.partial())
   }
 
-  const bodyValidationResult = bodyValidationSchema.safeParse(req.params);
+  const bodyValidationResult = bodyValidationSchema.safeParse(req.params)
 
   if (!bodyValidationResult.success) {
     const errors = bodyValidationResult.error.flatten()
     throw new BadRequestError('Validation error', {
-      fieldErrors: errors
+      fieldErrors: errors,
     })
   }
 

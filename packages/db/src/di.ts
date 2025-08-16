@@ -1,5 +1,5 @@
-import { DbType } from "./database";
-import { UserRepository } from "./repositories";
+import { DbType } from './database'
+import { UserRepository } from './repositories'
 
 export class DBContainer {
   constructor(private readonly getDatabaseInstance: () => DbType) {}

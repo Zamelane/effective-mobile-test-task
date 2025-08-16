@@ -1,20 +1,20 @@
-import { db } from "@effective-mobile-tt/db/src"
-import { PasswordService } from "./password"
-import { UnauthorizedError } from "@effective-mobile-tt/shared/src"
-import { env } from "../config/env"
-import jwt from "jsonwebtoken"
-import { usersCache } from "./cache"
+import { db } from '@effective-mobile-tt/db/src'
+import { PasswordService } from './password'
+import { UnauthorizedError } from '@effective-mobile-tt/shared/src'
+import { env } from '../config/env'
+import jwt from 'jsonwebtoken'
+import { usersCache } from './cache'
 
-import { Request } from "express"
-import { DBUser } from "@effective-mobile-tt/db/src/models"
-import { converter } from "../lib/converter"
+import { Request } from 'express'
+import { DBUser } from '@effective-mobile-tt/db/src/models'
+import { converter } from '../lib/converter'
 
 export class UserService {
   /**
    * Авторизирует пользователя, выдаёт токен при успешной операции
-   * @param email 
-   * @param password 
-   * @returns 
+   * @param email
+   * @param password
+   * @returns
    */
   static async login(email: string, password: string) {
     const user = await db.user.find(email)
@@ -25,29 +25,27 @@ export class UserService {
 
     const isPasswordValid = await PasswordService.compare(
       password,
-      user.password
+      user.password,
     )
 
     if (!isPasswordValid) {
       throw new UnauthorizedError('Invalid credentials')
     }
 
-    const token = jwt.sign(
-      { userId: user.id.toString() },
-      env.API_JWT_SECRET,
-      { expiresIn: '11d' }
-    )
+    const token = jwt.sign({ userId: user.id.toString() }, env.API_JWT_SECRET, {
+      expiresIn: '11d',
+    })
 
     return {
       token,
-      user
+      user,
     }
   }
 
   /**
    * Проверяет, является ли пользователь администратором (с кешированием)
-   * @param userId 
-   * @returns 
+   * @param userId
+   * @returns
    */
   static async checkIsAdmin({ auth }: Request, throwError: boolean = false) {
     const userOnly = auth ? await this.getUserById(auth.userId) : null
@@ -62,7 +60,9 @@ export class UserService {
 
   static async getUserById(userId: string | number) {
     const userCache = usersCache.get(userId.toString())
-    const userOnly = userCache ? userCache : await db.user.getById(converter(userId, 'number'))
+    const userOnly = userCache
+      ? userCache
+      : await db.user.getById(converter(userId, 'number'))
 
     if (!userCache && userOnly) {
       usersCache.set(userId.toString(), userOnly)
@@ -73,16 +73,13 @@ export class UserService {
 
   static async isAuthorized({ auth }: Request): Promise<DBUser | false> {
     const stauts = auth
-      ? await this.getUserById(auth.userId) ?? false
+      ? ((await this.getUserById(auth.userId)) ?? false)
       : false
-      
+
     return stauts
   }
 
-  static async compareUserIdsByAuth(
-    req: Request,
-    compareId: number,
-  ) {
+  static async compareUserIdsByAuth(req: Request, compareId: number) {
     const currentUser = await this.isAuthorized(req)
 
     if (currentUser && currentUser.id === compareId) {
@@ -92,18 +89,17 @@ export class UserService {
     return false
   }
 
-  static async banUser(userId: number|string) {
+  static async banUser(userId: number | string) {
     return this._ban(userId, false)
   }
 
-  static async unbanUser(userId: number|string) {
+  static async unbanUser(userId: number | string) {
     return this._ban(userId, true)
   }
 
-  private static async _ban(userId: number|string, isActive: boolean) {
-    return await db.user.update(
-      converter(userId, 'number'),
-      { isActive: isActive }
-    )
+  private static async _ban(userId: number | string, isActive: boolean) {
+    return await db.user.update(converter(userId, 'number'), {
+      isActive: isActive,
+    })
   }
 }
