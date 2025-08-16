@@ -34,8 +34,12 @@ export const UserUpdateZodSchema = z.object({
 export const UserChangeRoleZodSchema = z.object({
   role: z.enum(['user', 'admin'])
 })
+export const UserChangeStatusZodSchema = z.object({
+  isActive: z.boolean()
+})
 
 export type UserLoginZod = z.infer<typeof UserLoginZodSchema>
 export type UserRegistrationZod = z.infer<typeof UserRegistrationZodSchema>
 export type UserUpdateZod = z.infer<typeof UserUpdateZodSchema>
 export type UserChangeRoleZod = z.infer<typeof UserChangeRoleZodSchema>
+export type USerChangeStatusZod = z.infer<typeof UserChangeStatusZodSchema>

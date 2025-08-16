@@ -16,16 +16,14 @@ app
   .use(cors({
     origin: '*'
   }))
+  // Обработчики токена
   .use(jwtReader)
   .use(checkAuthPlugin)
+  // Статика и api-роуты
   .use(express.static('../../web/build'))
   .use('/api', apiRouter)
-
-app.get("/", (req, res) => {
-  res.send('Hello World!').status(200);
-});
-
-app.use(notFoundHandler)
+  // Обработчики ошибок
+  .use(notFoundHandler)
   .use(errorHandler)
 
 async function main() {

@@ -1,6 +1,6 @@
 import { BadRequestError, UserLoginZodSchema } from '@effective-mobile-tt/shared/src';
 import express from 'express';
-import { AuthService } from '../../services/auth';
+import { UserService } from '../../services/user';
 
 export const loginRoute = express.Router()
   .post('/login', async (req, res) => {
@@ -15,7 +15,7 @@ export const loginRoute = express.Router()
 
     const { email, password } = validationResult.data
 
-    const authData = await AuthService.login(email, password)
+    const authData = await UserService.login(email, password)
 
     const { user: { password: _, ...userInfo }, token } = authData
 

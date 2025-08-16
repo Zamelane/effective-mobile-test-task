@@ -1,12 +1,12 @@
 import { eq } from "drizzle-orm";
 import { UserRepository } from ".";
-import { UserChangeRoleZod, UserUpdateZod } from "@effective-mobile-tt/shared";
+import { UserChangeRoleZod, UserUpdateZod, USerChangeStatusZod } from "@effective-mobile-tt/shared/src/index";
 import { users } from "../../models";
 
 export async function update(
   this: UserRepository,
   userId: number,
-  value: UserUpdateZod & Partial<UserChangeRoleZod>
+  value: Partial<UserUpdateZod & UserChangeRoleZod & USerChangeStatusZod>
 ) {
   const [user] = await this.db
     .update(users)

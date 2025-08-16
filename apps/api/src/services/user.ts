@@ -6,8 +6,10 @@ import jwt from "jsonwebtoken"
 import { usersCache } from "./cache"
 
 import { Request } from "express"
+import { DBUser } from "@effective-mobile-tt/db/src/models"
+import { converter } from "../lib/converter"
 
-export class AuthService {
+export class UserService {
   /**
    * Авторизирует пользователя, выдаёт токен при успешной операции
    * @param email 
@@ -47,19 +49,20 @@ export class AuthService {
    * @param userId 
    * @returns 
    */
-  static async checkIsAdmin(userId: number) {
-    const userOnly = await this.getUserById(userId.toString())
+  static async checkIsAdmin({ auth }: Request, throwError: boolean = false) {
+    const userOnly = auth ? await this.getUserById(auth.userId) : null
+    const isPremitted = userOnly && userOnly.role === 'admin'
 
-    if (!userOnly) {
-      return false
+    if (!isPremitted && throwError) {
+      throw new UnauthorizedError('You are not allowed to view this user')
     }
 
-    return userOnly.role === 'admin'
+    return isPremitted
   }
 
-  static async getUserById(userId: string) {
+  static async getUserById(userId: string | number) {
     const userCache = usersCache.get(userId.toString())
-    const userOnly = userCache ? userCache : await db.user.getById(Number.parseInt(userId))
+    const userOnly = userCache ? userCache : await db.user.getById(converter(userId, 'number'))
 
     if (!userCache && userOnly) {
       usersCache.set(userId.toString(), userOnly)
@@ -68,20 +71,39 @@ export class AuthService {
     return userOnly
   }
 
-  static async compareUserIdsByAuth(
-    { auth }: Request,
-    compareId: number
-  ) {
-    if (!auth) {
-      return false
-    }
+  static async isAuthorized({ auth }: Request): Promise<DBUser | false> {
+    const stauts = auth
+      ? await this.getUserById(auth.userId) ?? false
+      : false
+      
+    return stauts
+  }
 
-    const currentUser = await this.getUserById(auth.userId)
+  static async compareUserIdsByAuth(
+    req: Request,
+    compareId: number,
+  ) {
+    const currentUser = await this.isAuthorized(req)
 
     if (currentUser && currentUser.id === compareId) {
       return true
     }
 
     return false
+  }
+
+  static async banUser(userId: number|string) {
+    return this._ban(userId, false)
+  }
+
+  static async unbanUser(userId: number|string) {
+    return this._ban(userId, true)
+  }
+
+  private static async _ban(userId: number|string, isActive: boolean) {
+    return await db.user.update(
+      converter(userId, 'number'),
+      { isActive: isActive }
+    )
   }
 }

@@ -1,7 +1,7 @@
 import { db } from '@effective-mobile-tt/db/src';
 import { BadRequestError, NotFoundError } from '@effective-mobile-tt/shared/src/errors/internal';
 import express from 'express';
-import { AuthService } from '../../services/auth';
+import { UserService } from '../../services/user';
 
 export const userGetByIdRoute = express.Router()
   .get('/users/:id', async (req, res) => {
@@ -11,7 +11,7 @@ export const userGetByIdRoute = express.Router()
       throw new BadRequestError('Invalid user ID');
     }
 
-    const isPermitted = await AuthService.compareUserIdsByAuth(req, userId)
+    const isPermitted = await UserService.compareUserIdsByAuth(req, userId) || await UserService.checkIsAdmin(req)
 
     if (!isPermitted) {
       throw new BadRequestError('You are not allowed to view this user');

@@ -2,7 +2,7 @@ import { BadRequestError, UserRegistrationZodSchema } from '@effective-mobile-tt
 import express from 'express';
 import { PasswordService } from '../../services/password';
 import { db } from '@effective-mobile-tt/db/src';
-import { AuthService } from '../../services/auth';
+import { UserService } from '../../services/user';
 
 export const registrationRoute = express.Router()
   .post('/registration', async (req, res) => {
@@ -22,9 +22,9 @@ export const registrationRoute = express.Router()
       password: hashedPassword
     })
 
-    const authData = await AuthService.login(user.email, validationResult.data.password)
+    const authData = await UserService.login(user.email, validationResult.data.password)
 
     const { user: { password, ...userInfo }, token } = authData
 
-    res.json({ userInfo, token }).status(200)
+    res.json({ userInfo, token }).status(201)
   })
