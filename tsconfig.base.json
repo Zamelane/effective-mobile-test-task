@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    "inlineSources": true,
+    "sourceMap": true,
+    "incremental": true,
+
+    "module": "commonjs",
+    "target": "es2016",
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "allowJs": false,
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+
+    "verbatimModuleSyntax": false,
+
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "paths": {
+      "@effective-mobile-tt/*": ["./node_modules/@effective-mobile-tt/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/node_modules", "dist", "**/*.test.*", "**/*.spec.*"]
+}

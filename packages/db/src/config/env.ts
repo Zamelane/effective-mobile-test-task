@@ -1,4 +1,14 @@
-import { z } from "zod";
+import dotenv from 'dotenv'
+import { z } from 'zod'
+import findupSync from 'findup-sync'
+
+const envFile = findupSync(".env"); // Находит ближайший .env выше в дереве каталогов
+
+if (envFile) {
+  dotenv.config({ quiet: true, path: envFile });
+} else {
+  console.error(".env не найден!");
+}
 
 const envSchema = z.object({
   DB_USER: z.string().min(1),
@@ -15,14 +25,17 @@ const envParsed = envSchema.safeParse({
   DB_PASSWORD: process.env.DB_PASSWORD,
 
   DB_HOST: process.env.DB_HOST,
-  DB_PORT: process.env.DB_PORT,
+  DB_PORT: Number(process.env.DB_PORT),
 
   DB_NAME: process.env.DB_NAME,
 })
 
 if (!envParsed.success) {
-  console.error("Invalid environment variables:", z.treeifyError(envParsed.error));
-  throw new Error('Invalid environment variables');
+  console.error(
+    'Invalid environment variables:',
+    z.treeifyError(envParsed.error),
+  )
+  throw new Error('Invalid environment variables')
 }
 
 export const env = envParsed.data

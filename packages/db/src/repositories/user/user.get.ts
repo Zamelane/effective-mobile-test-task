@@ -1,11 +1,8 @@
-import { eq } from "drizzle-orm";
-import { UserRepository } from ".";
-import { users } from "../../models";
+import { eq } from 'drizzle-orm'
+import { UserRepository } from '.'
+import { users } from '../../models'
 
-export async function getById(
-  this: UserRepository,
-  id: number
-) {
+export async function getById(this: UserRepository, id: number) {
   const result = await this.db
     .select()
     .from(users)

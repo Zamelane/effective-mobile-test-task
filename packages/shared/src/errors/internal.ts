@@ -3,10 +3,16 @@ export class ApiError extends Error {
     public readonly status: number,
     public readonly code: string,
     message: string,
-    public readonly details?: unknown
+    public readonly details?: unknown,
   ) {
     super(message)
     this.name = this.constructor.name
+  }
+}
+
+export class BadRequestError extends ApiError {
+  constructor(message = 'Bad Request', details?: unknown) {
+    super(400, 'BAD_REQUEST', message, details)
   }
 }
 

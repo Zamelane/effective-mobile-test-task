@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "env:sync": "npx tsx scripts/check-env-exists.ts",
+    "api:dev": "cd ./apps/api && npm run dev",
+    "db:migrate": "cd ./packages/db && npx drizzle-kit migrate",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "------- Format -------": "-------",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
+    "format": "npx biome format . --write"
   },
   "author": "",
   "license": "ISC",
@@ -11,5 +17,14 @@
   "workspaces": [
     "./apps/*",
     "./packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "dotenv": "^17.2.1",
+    "findup-sync": "^5.0.0",
+    "tsx": "^4.20.4"
+  },
+  "devDependencies": {
+    "@types/findup-sync": "^4.0.5"
+  }
 }

@@ -2,8 +2,13 @@
   "name": "@effective-mobile-tt/db",
   "version": "1.0.0",
   "main": "index.js",
+  "module": "./src/index.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "--- DB ---": "---",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "------- Format -------": "-------",
+    "format": "npx biome format . --write"
   },
   "exports": {
     ".": "./src/index.ts"
@@ -13,6 +18,7 @@
   "description": "",
   "dependencies": {
     "dotenv": "^17.2.1",
+    "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.4",
     "drizzle-typebox": "^0.3.3",
     "pg": "^8.16.3",
