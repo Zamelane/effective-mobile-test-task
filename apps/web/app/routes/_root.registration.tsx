@@ -1,12 +1,12 @@
-import { CardAction, CardDescription, CardTitle } from "~/components/ui/card"
-import type { Route } from "./+types/_root.registration"
-import { Button } from "~/components/ui/button"
-import { useNavigate } from "react-router"
-import { useAuth } from "~/context"
-import { useState, type FormEvent } from "react"
-import { UserRegistrationZodSchema } from "@effective-mobile-tt/shared"
-import { AuthForm, type FormErrors, type FormField } from "~/components/form"
-import { registartion } from "~/api/registration"
+import { CardAction, CardDescription, CardTitle } from '~/components/ui/card'
+import type { Route } from './+types/_root.registration'
+import { Button } from '~/components/ui/button'
+import { useNavigate } from 'react-router'
+import { useAuth } from '~/context'
+import { useState, type FormEvent } from 'react'
+import { UserRegistrationZodSchema } from '@effective-mobile-tt/shared'
+import { AuthForm, type FormErrors, type FormField } from '~/components/form'
+import { registartion } from '~/api/registration'
 
 const fields: FormField[] = [
   { title: 'Фамилия', name: 'firstName', type: 'text' },
@@ -17,16 +17,16 @@ const fields: FormField[] = [
   { title: 'Пароль', name: 'password', type: 'password' },
 ]
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Registration" },
-    { name: "description", content: "Login page" }
+    { title: 'Registration' },
+    { name: 'description', content: 'Login page' },
   ]
 }
 
 export default function RegistrationPage() {
   return (
-    <div className="flex justify-center items-center h-screen w-full">
+    <div className='flex justify-center items-center h-screen w-full'>
       <FormComponent />
     </div>
   )
@@ -46,7 +46,9 @@ function FormComponent() {
 
     try {
       const formData = new FormData(e.currentTarget)
-      const credentialsValidationResult = UserRegistrationZodSchema.safeParse(Object.fromEntries(formData.entries()))
+      const credentialsValidationResult = UserRegistrationZodSchema.safeParse(
+        Object.fromEntries(formData.entries()),
+      )
 
       if (!credentialsValidationResult.success) {
         const errors = credentialsValidationResult.error.flatten().fieldErrors
@@ -57,7 +59,7 @@ function FormComponent() {
       const result = await registartion(
         credentialsValidationResult.data,
         setUser,
-        setIsActual
+        setIsActual,
       )
 
       if ('id' in result) {
@@ -75,7 +77,9 @@ function FormComponent() {
         return
       }
 
-      setErrors('Почему-то сервер вернул такой ответ, который клиент обработать не может :(')
+      setErrors(
+        'Почему-то сервер вернул такой ответ, который клиент обработать не может :(',
+      )
     } finally {
       setIsLoading(false)
     }
@@ -87,18 +91,13 @@ function FormComponent() {
       errors={errors}
       isLoading={isLoading}
       handle={handleRegistration}
-      loadingActionText="Регистрирую..."
-      actionText="Зарегистрироваться"
+      loadingActionText='Регистрирую...'
+      actionText='Зарегистрироваться'
     >
       <CardTitle>Создайте свой аккаунт</CardTitle>
-      <CardDescription>
-        Заполните поля ниже
-      </CardDescription>
+      <CardDescription>Заполните поля ниже</CardDescription>
       <CardAction>
-        <Button
-          variant="link"
-          onClick={() => navigate('/')}
-        >
+        <Button variant='link' onClick={() => navigate('/')}>
           Войти
         </Button>
       </CardAction>

@@ -23,9 +23,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -41,7 +39,7 @@ export default function App() {
     <>
       {isNavigating && (
         <div className='flex justify-center items-center h-screen w-full'>
-          <Spinner/>
+          <Spinner />
         </div>
       )}
       <Outlet />

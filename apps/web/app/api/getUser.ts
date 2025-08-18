@@ -1,17 +1,15 @@
-import { api } from "~/lib/fetcher";
-import type { ErrorResponse } from "~/types";
-import type { UserResponse } from "./login";
+import { api } from '~/lib/fetcher'
+import type { ErrorResponse } from '~/types'
+import type { UserResponse } from './login'
 
-type GetUserResponse =
-  | UserResponse
-  | ErrorResponse
+type GetUserResponse = UserResponse | ErrorResponse
 
 export async function getUser(userId: number): Promise<UserResponse | string> {
   try {
-    const result = await api.get<GetUserResponse>(`users/${userId}`).json();
+    const result = await api.get<GetUserResponse>(`users/${userId}`).json()
 
     if ('id' in result) {
-      return result;
+      return result
     }
 
     if ('error' in result) {

@@ -5,27 +5,27 @@ export const api = ky.extend({
   throwHttpErrors: false,
   hooks: {
     beforeRequest: [
-      request => {
+      (request) => {
         const storage = localStorage.getItem('user')
 
         if (!storage) return
 
         const user = JSON.parse(storage)
-        
+
         if (typeof user?.token === 'string') {
           request.headers.set('Authorization', `Bearer ${user.token}`)
         }
-      }
+      },
     ],
     beforeError: [
-      error => {
-        const { response } = error;
+      (error) => {
+        const { response } = error
         if (response.status === 403) {
-          window.location.href = '/logout';
+          window.location.href = '/logout'
         }
 
-        return error;
-      }
-    ]
-  }
+        return error
+      },
+    ],
+  },
 })

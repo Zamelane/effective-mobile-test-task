@@ -1,28 +1,25 @@
-import { Button } from "~/components/ui/button";
-import type { Route } from "./+types/_root._index";
-import { CardAction, CardDescription, CardTitle } from "~/components/ui/card";
-import { useNavigate } from "react-router";
-import { useState, type FormEvent } from "react";
-import { login } from "~/api/login";
-import { UserLoginZodSchema } from "@effective-mobile-tt/shared";
-import { useAuth } from "~/context";
-import { AuthForm, type FormField } from "~/components/form";
+import { Button } from '~/components/ui/button'
+import type { Route } from './+types/_root._index'
+import { CardAction, CardDescription, CardTitle } from '~/components/ui/card'
+import { useNavigate } from 'react-router'
+import { useState, type FormEvent } from 'react'
+import { login } from '~/api/login'
+import { UserLoginZodSchema } from '@effective-mobile-tt/shared'
+import { useAuth } from '~/context'
+import { AuthForm, type FormField } from '~/components/form'
 
 const fields: FormField[] = [
   { title: 'Email', name: 'email', type: 'email' },
   { title: 'Пароль', name: 'password', type: 'password' },
 ]
 
-export function meta({ }: Route.MetaArgs) {
-  return [
-    { title: "Login" },
-    { name: "description", content: "Login page" }
-  ]
+export function meta({}: Route.MetaArgs) {
+  return [{ title: 'Login' }, { name: 'description', content: 'Login page' }]
 }
 
-export default function Page({ }: Route.ComponentProps) {
+export default function Page({}: Route.ComponentProps) {
   return (
-    <div className="flex justify-center items-center h-screen w-full">
+    <div className='flex justify-center items-center h-screen w-full'>
       <FormComponent />
     </div>
   )
@@ -34,9 +31,7 @@ function FormComponent() {
 
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<
-    | Record<string, string[]>
-    | string
-    | null
+    Record<string, string[]> | string | null
   >(null)
 
   const getError = (key: string) => {
@@ -55,7 +50,7 @@ function FormComponent() {
       const formData = new FormData(e.currentTarget)
       const credentialsValidationResult = UserLoginZodSchema.safeParse({
         email: formData.get('email'),
-        password: formData.get('password')
+        password: formData.get('password'),
       })
 
       if (!credentialsValidationResult.success) {
@@ -67,7 +62,7 @@ function FormComponent() {
       const result = await login(
         credentialsValidationResult.data,
         setUser,
-        setIsActual
+        setIsActual,
       )
 
       if ('id' in result) {
@@ -85,7 +80,9 @@ function FormComponent() {
         return
       }
 
-      setErrors('Почему-то сервер вернул такой ответ, который клиент обработать не может :(')
+      setErrors(
+        'Почему-то сервер вернул такой ответ, который клиент обработать не может :(',
+      )
     } finally {
       setIsLoading(false)
     }
@@ -97,18 +94,13 @@ function FormComponent() {
       errors={errors}
       isLoading={isLoading}
       handle={handleLogin}
-      loadingActionText="Вход..."
-      actionText="Войти"
+      loadingActionText='Вход...'
+      actionText='Войти'
     >
       <CardTitle>Войдите в свой аккаунт</CardTitle>
-      <CardDescription>
-        Заполните поля ниже
-      </CardDescription>
+      <CardDescription>Заполните поля ниже</CardDescription>
       <CardAction>
-        <Button
-          variant="link"
-          onClick={() => navigate('/registration')}
-        >
+        <Button variant='link' onClick={() => navigate('/registration')}>
           Создать новый
         </Button>
       </CardAction>

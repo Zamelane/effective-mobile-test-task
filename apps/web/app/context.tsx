@@ -1,5 +1,5 @@
-import type { DBUser } from '@effective-mobile-tt/db/src/models/user/user.types';
-import { createContext, useContext, useEffect, useState } from 'react';
+import type { DBUser } from '@effective-mobile-tt/db/src/models/user/user.types'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 export type User = ExcludeField<DBUser, 'password'> & {
   token: string
@@ -35,12 +35,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{
-      isActual,
-      user,
-      setUser: setUserPreHandler,
-      setIsActual
-    }}>
+    <AuthContext.Provider
+      value={{
+        isActual,
+        user,
+        setUser: setUserPreHandler,
+        setIsActual,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

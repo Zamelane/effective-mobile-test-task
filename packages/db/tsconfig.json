@@ -5,7 +5,7 @@
     "module": "esnext",
     "allowJs": false,
     "rootDir": "./src",
-    "paths": {                  
+    "paths": {
       "@/*": ["./src/*"]
     }
   },

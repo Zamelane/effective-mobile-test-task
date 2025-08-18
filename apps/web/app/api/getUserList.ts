@@ -1,7 +1,6 @@
-import { api } from "~/lib/fetcher";
-import type { ErrorResponse } from "~/types";
-import type { UserResponse } from "./login";
-
+import { api } from '~/lib/fetcher'
+import type { ErrorResponse } from '~/types'
+import type { UserResponse } from './login'
 
 type Response = {
   data: UserResponse[]
@@ -9,16 +8,14 @@ type Response = {
   pageSize: number
 }
 
-type GetUserResponse =
-  | Response
-  | ErrorResponse
+type GetUserResponse = Response | ErrorResponse
 
 export async function getUserList(page: number): Promise<Response | string> {
   try {
-    const result = await api.get<GetUserResponse>(`usersList/${page}`).json();
+    const result = await api.get<GetUserResponse>(`usersList/${page}`).json()
 
     if ('data' in result) {
-      return result;
+      return result
     }
 
     if ('error' in result) {

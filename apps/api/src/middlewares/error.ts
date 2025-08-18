@@ -1,7 +1,4 @@
-import {
-  ApiError,
-  InternalServerError,
-} from '@effective-mobile-tt/shared'
+import { ApiError, InternalServerError } from '@effective-mobile-tt/shared'
 import { Request, Response, NextFunction } from 'express'
 import { env } from '../config/env'
 

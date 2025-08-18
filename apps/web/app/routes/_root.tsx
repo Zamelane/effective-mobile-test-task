@@ -1,5 +1,5 @@
-import { Navigate, Outlet } from "react-router";
-import { useAuth } from "~/context";
+import { Navigate, Outlet } from 'react-router'
+import { useAuth } from '~/context'
 
 export default function Layout() {
   const { user } = useAuth()
@@ -8,7 +8,5 @@ export default function Layout() {
     return <Navigate to={'/app/user/' + user.id} replace />
   }
 
-  return(
-    <Outlet/>
-  )
+  return <Outlet />
 }
