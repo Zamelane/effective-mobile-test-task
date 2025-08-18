@@ -3,14 +3,12 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-
     "inlineSources": true,
     "sourceMap": true,
     "incremental": true,
-
     "module": "commonjs",
     "target": "es2016",
-
+    "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -18,16 +16,23 @@
     "allowJs": false,
     "resolveJsonModule": true,
     "isolatedModules": false,
-
     "verbatimModuleSyntax": false,
-
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    "baseUrl": ".",
     "paths": {
-      "@effective-mobile-tt/*": ["./node_modules/@effective-mobile-tt/*"]
+      "@effective-mobile-tt/shared": ["./packages/shared/src/index"],
+      "@effective-mobile-tt/shared/*": ["./packages/shared/src/*"],
+      "@effective-mobile-tt/db": ["./packages/db/src/index"],
+      "@effective-mobile-tt/db/*": ["./packages/db/src/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/node_modules", "dist", "**/*.test.*", "**/*.spec.*"]
+  "include": ["**/*.ts"],
+  "exclude": ["**/node_modules", "dist", "**/*.test.*", "**/*.spec.*"],
+  "references": [
+    { "path": "./apps/api" },
+    { "path": "./packages/db" },
+    { "path": "./packages/shared" }
+  ]
 }

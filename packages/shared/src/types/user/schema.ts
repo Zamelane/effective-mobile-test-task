@@ -1,4 +1,4 @@
-import { email, z } from 'zod'
+import { z } from 'zod'
 
 export const UserLoginZodSchema = z.object({
   email: z.email('Некорректный email'),
@@ -13,7 +13,7 @@ export const UserRegistrationZodSchema = z.object({
   lastName: z.string().min(1).max(128),
   middleName: z.string().min(1).max(128),
 
-  birthDate: z.date(),
+  birthDate: z.coerce.date(),
   email: z.email(),
   password: z
     .string()

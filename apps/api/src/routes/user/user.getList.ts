@@ -9,7 +9,7 @@ export const userGetListRoute = express
 
     const pageSizeParam = req.query.pageSize
     const pageSize =
-      typeof pageSizeParam === 'string' ? parseInt(pageSizeParam) : undefined
+      typeof pageSizeParam === 'string' ? parseInt(pageSizeParam) : 8
 
     if (isNaN(page) || page <= 0) {
       throw new BadRequestError('Invalid page number')

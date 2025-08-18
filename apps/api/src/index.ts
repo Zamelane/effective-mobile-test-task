@@ -2,7 +2,7 @@ import { dbInstance } from '@effective-mobile-tt/db/src/index'
 import boxen from 'boxen'
 import express from 'express'
 import cors from 'cors'
-import { checkAuthPlugin, jwtReader } from './middlewares/auth'
+import { jwtReader } from './middlewares/auth'
 import { env } from './config/env'
 import { errorHandler } from './middlewares/error'
 import { notFoundHandler } from './middlewares/notFound'
@@ -18,9 +18,10 @@ app
       origin: '*',
     }),
   )
-  // Обработчики токена
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  // Обработчик токена
   .use(jwtReader)
-  .use(checkAuthPlugin)
   // Статика и api-роуты
   .use(express.static('../../web/build'))
   .use('/api', apiRouter)

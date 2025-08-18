@@ -1,9 +1,9 @@
-import type { Route } from "./+types/user.$id._index";
+import type { Route } from "./+types/app.user.$id.edit";
 
 export default function Component({ params }: Route.ComponentProps) {
   return (
     <div className="">
-      User view {params.id}
+      User edit: {params.id}
     </div>
   )
 }
