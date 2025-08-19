@@ -103,7 +103,7 @@ export function EditUserSheet({ children, user, setUser }: EditSheetProps) {
         </SheetHeader>
 
         {errors && (
-          <Alert variant='destructive'>
+          <Alert variant='destructive' className='mx-4 w-auto'>
             <AlertCircleIcon />
             <AlertTitle>Ошибка обновления данных</AlertTitle>
             <AlertDescription>

@@ -21,9 +21,9 @@ export const UserRegistrationZodSchema = z.object({
 })
 
 export const UserUpdateZodSchema = z.object({
-  firstName: z.optional(z.string().min(1).max(128)),
-  lastName: z.optional(z.string().min(1).max(128)),
-  middleName: z.optional(z.string().min(1).max(128).nullable()),
+  firstName: z.optional(z.string().max(128)),
+  lastName: z.optional(z.string().max(128)),
+  middleName: z.optional(z.string().max(128).nullable()),
 
   birthDate: z.optional(z.coerce.date()),
   email: z.optional(z.email()),

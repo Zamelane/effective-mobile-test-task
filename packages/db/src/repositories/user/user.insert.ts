@@ -13,7 +13,6 @@ export async function insert(
     .insert(users)
     .values({
       ...value,
-      role: 'user',
     })
     .returning()
     .catch((e) => {

@@ -2,7 +2,7 @@ import {
   BadRequestError,
   NotFoundError,
   UserChangeRoleZodSchema,
-  UserUpdateZodSchema,
+  UserUpdateZodSchema as schema,
 } from '@effective-mobile-tt/shared/src'
 import express, { Request } from 'express'
 import z from 'zod'
@@ -17,7 +17,7 @@ export const userUpdateRoute = express
   .Router()
   .post('/users/:id', async (req, res) => {
     const params = paramsValidate(req)
-    const body = await bodyValidate(req)
+    const body = await bodyValidate(req, params.id)
 
     const user = await db.user.update(params.id, body)
 
@@ -45,14 +45,21 @@ function paramsValidate(req: Request) {
   return paramsValidationResult.data
 }
 
-async function bodyValidate(req: Request) {
+async function bodyValidate(req: Request, userId: number) {
   const isAdmin = await UserService.checkIsAdmin(req)
+
+  const UserUpdateZodSchema = schema.extend({
+  email: schema.shape.email.refine(async (email) => !email || !((await db.user.checkEmail(email)) !== userId), {
+    message: 'Email уже занят',
+    path: ['email'],
+  })
+})
 
   const bodyValidationSchema = isAdmin
     ? UserUpdateZodSchema.merge(UserChangeRoleZodSchema.partial())
     : UserUpdateZodSchema
 
-  const bodyValidationResult = bodyValidationSchema.safeParse(req.body)
+  const bodyValidationResult = await bodyValidationSchema.safeParseAsync(req.body)
 
   if (!bodyValidationResult.success) {
     const errors = bodyValidationResult.error.flatten()

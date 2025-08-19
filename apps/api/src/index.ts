@@ -5,8 +5,8 @@ import cors from 'cors'
 import { jwtReader } from './middlewares/auth'
 import { env } from './config/env'
 import { errorHandler } from './middlewares/error'
-import { notFoundHandler } from './middlewares/notFound'
 import { apiRouter } from './routes'
+import path from 'path'
 
 const PORT = env.API_PORT
 
@@ -23,10 +23,12 @@ app
   // Обработчик токена
   .use(jwtReader)
   // Статика и api-роуты
-  .use(express.static('../../web/build'))
   .use('/api', apiRouter)
-  // Обработчики ошибок
-  .use(notFoundHandler)
+  .use(express.static('../web/build/client'))
+  .get(/\/(.*)/, (req, res) => {
+    res.sendFile(path.join(process.cwd(), '../web/build/client/index.html'))
+  })
+  // Обработчик ошибок
   .use(errorHandler)
 
 async function main() {
