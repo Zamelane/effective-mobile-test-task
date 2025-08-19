@@ -17,6 +17,10 @@
 <a href="https://t.me/zamelane">📱 Contact with me</a>
 </p>
 
+<p align="center">
+<a href="https://docs.360.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FG%2FsBR6g5Su%2Bg4Zy0ZkTVj%2FfUwmFav9FA38Wj3Dl0fQUUMR8W8zrvMeqtM0mvyhBBskEAmkQ4kXOg0TR8ZsXayQ%3D%3D&name=ТЗ_Node.js.docx">📝 Technical specification</a>
+</p>
+
 <h2 id="technologies">💻 Technologies</h2>
 
 - Vite (React Router v7)
@@ -124,24 +128,13 @@ For clarity, the prefix "/api" is omitted. Take this into account before using!
 ​
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>POST /login</kbd>     | authenticate user into the api see [request details](#login-detail)
-| <kbd>POST /registration</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>GET /users/:id</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>POST /users/:id</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>POST /users/:id/ban</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>POST /users/:id/unban</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>GET /usersList/:page?pageSize={number}</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-
-<h3 id="get-auth-detail">GET /authenticate</h3>
-
-**RESPONSE**
-```json
-{
-  "name": "Fernanda Kipper",
-  "age": 20,
-  "email": "her-email@gmail.com"
-}
-```
+| <kbd>POST /login</kbd> | User authentication in the system. For more information, see [the request details section](#login-detail).
+| <kbd>POST /registration</kbd> | Registration of a new user in the system. For more information, see [the request details section](#registration-detail).
+| <kbd>GET /users/:id</kbd> | Getting information about a specific user by their ID. For more information, see [the request details section](#get-user-detail).
+| <kbd>POST /users/:id</kbd> | Updating user profile data with the specified ID. For more information, see [the request details section](#update-user-detail).
+| <kbd>POST /users/:id/ban</kbd> | Blocking (ban) the user by ID. For more information, see [the request details section](#ban-user-detail).
+| <kbd>POST /users/:id/unban</kbd> | Unblocking (removing ban) a user by ID. For more information, see [the request details section](#unban-user-detail).
+| <kbd>GET /usersList/:page?pageSize={number}</kbd> | Getting a page-by-page list of users with the ability to specify the page size. For more information, see [the request details section](#users-list-detail).
 
 <h3 id="post-auth-detail">POST /authenticate</h3>
 
@@ -157,6 +150,139 @@ For clarity, the prefix "/api" is omitted. Take this into account before using!
 ```json
 {
   "token": "OwoMRHsaQwyAgVoc3OXmL1JhMVUYXGGBbCTK0GBgiYitwQwjf0gVoBmkbuyy0pSi"
+}
+```
+
+<h3 id="login-detail">POST /login</h3>
+
+**REQUEST**
+```json
+{
+    "email": "user@example.com",
+    "password": "securepassword123"
+}
+```
+
+**RESPONSE**
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJkb2VAZXhhbXBsZS5jb20iLCJleHAiOjE1OTY2NjY2NjYifQ.S6_P-jQ7u8i6-z0X-yQ99v9gFWy9j9j9j9j9j9j9j9",
+    "user_id": 12345
+}
+```
+
+<h3 id=“registration-detail”>POST /registration</h3>
+
+**REQUEST**
+```json
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "password": "securepassword123",
+    "dateOfBirth": "1990-01-01"
+}
+```
+
+**RESPONSE**
+```json
+{
+    "message": "User successfully registered",
+    "user_id": 12345
+}
+```
+
+<h3 id=“get-user-detail”>GET /users/:id</h3>
+
+**RESPONSE**
+```json
+{
+    "id": 12345,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "registrationDate": "2023-01-01T12:00:00Z",
+    "isActive": true
+}
+```
+
+<h3 id=“update-user-detail”>POST /users/:id</h3>
+
+**REQUEST**
+```json
+{
+    "firstName": "Jonathan",
+    "email": "jonathan.doe@example.com",
+    "profilePicture": "https://example.com/profile.jpg"
+}
+```
+
+**RESPONSE**
+```json
+{
+    "message": "User profile updated successfully",
+    "updatedFields": ["firstName", "email", "profilePicture"]
+}
+```
+
+<h3 id=“ban-user-detail”>POST /users/:id/ban</h3>
+
+**REQUEST**
+```json
+{
+    "reason": "Violation of community guidelines",
+    "duration": "permanent"
+}
+```
+
+**RESPONSE**
+```json
+{
+    "message": "User banned successfully",
+    "ban_id": 1001,
+    "ban_reason": "Violation of community guidelines"
+}
+```
+
+<h3 id=“unban-user-detail”>POST /users/:id/unban</h3>
+
+**REQUEST**
+```json
+{
+    "reason": "Ban lifted by admin"
+}
+```
+
+**RESPONSE**
+```json
+{
+    "message": "User unbanned successfully",
+    "unban_reason": "Ban lifted by admin"
+}
+```
+
+<h3 id=“users-list-detail”>GET /usersList/:page?pageSize={number}</h3>
+
+**RESPONSE**
+```json
+{
+    "page": 1,
+    "pageSize": 10,
+    "totalUsers": 100,
+    "users": [
+        {
+            "id": 12345,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john.doe@example.com"
+        },
+        {
+            "id": 12346,
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "email": "jane.smith@example.com"
+        }
+    ]
 }
 ```
 
