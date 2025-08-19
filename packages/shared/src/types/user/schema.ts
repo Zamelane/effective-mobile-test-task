@@ -4,7 +4,6 @@ export const UserLoginZodSchema = z.object({
   email: z.email('Некорректный email'),
   password: z
     .string()
-    .min(8, 'Пароль должен быть не менее 8 символов')
     .max(256, 'Пароль должен быть не более 256 символов'),
 })
 

@@ -1,7 +1,7 @@
 import ky from 'ky'
 
 export const api = ky.extend({
-  prefixUrl: 'http://localhost:3000/api/',
+  prefixUrl: 'http://localhost:3000/api/', // Если адрес api нужно поменять, то менять только тут!!!
   throwHttpErrors: false,
   hooks: {
     beforeRequest: [

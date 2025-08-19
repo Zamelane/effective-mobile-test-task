@@ -7,7 +7,7 @@ import { DBUser, users } from '../../models'
 
 export async function insert(
   this: UserRepository,
-  value: UserRegistrationZod,
+  value: UserRegistrationZod | DBUser,
 ): Promise<DBUser> {
   const [user] = await this.db
     .insert(users)
