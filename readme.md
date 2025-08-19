@@ -1,3 +1,8 @@
+<p align="center">
+<a href="./readme_ru.md">RU</a>
+|
+<a href="./readme.md">EN</a>
+</p>
 
 <h1 align="center" style="font-weight: bold;">Effective Mobile Test Task 💻</h1>
 
