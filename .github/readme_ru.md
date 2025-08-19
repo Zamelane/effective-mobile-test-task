@@ -1,5 +1,5 @@
 <p align="center">
-<a href="./readme.md">EN</a>
+<a href="../readme.md">EN</a>
 |
 <a href="./readme_ru.md">RU</a>
 </p>
@@ -24,6 +24,20 @@
 
 <p align="center">
 <a href="https://docs.360.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FG%2FsBR6g5Su%2Bg4Zy0ZkTVj%2FfUwmFav9FA38Wj3Dl0fQUUMR8W8zrvMeqtM0mvyhBBskEAmkQ4kXOg0TR8ZsXayQ%3D%3D&name=ТЗ_Node.js.docx">📝 Техническое задание</a>
+</p>
+
+<h2 id="layout">🎨 Изображения</h2>
+
+<p align="center">
+
+<kbd><img src="./images/1.png" alt="Image" width="250px"></kbd>
+<kbd><img src="./images/2.png" alt="Image" width="245px"></kbd>
+<kbd><img src="./images/3.png" alt="Image" width="300px"></kbd>
+<kbd><img src="./images/4.png" alt="Image" width="200px"></kbd>
+<kbd><img src="./images/5.jpg" alt="Image" width="200px"></kbd>
+<kbd><img src="./images/6.png" alt="Image" width="375px"></kbd>
+<kbd><img src="./images/7.png" alt="Image" width="210px"></kbd>
+<kbd><img src="./images/8.png" alt="Image" width="200px"></kbd>
 </p>
 
 <h2 id="technologies">💻 Технологии</h2>

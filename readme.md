@@ -1,7 +1,7 @@
 <p align="center">
 <a href="./readme.md">EN</a>
 |
-<a href="./readme_ru.md">RU</a>
+<a href="./.github/readme_ru.md">RU</a>
 </p>
 
 <h1 align="center" style="font-weight: bold;">Effective Mobile Test Task 💻</h1>
@@ -30,8 +30,14 @@
 
 <p align="center">
 
-<img src="https://picsum.photos/1080/1920" alt="Random Image" width="400px">
-<img src="https://picsum.photos/1080/1920" alt="Random Image" width="400px">
+<kbd><img src="./.github/images/1.png" alt="Image" width="250px"></kbd>
+<kbd><img src="./.github/images/2.png" alt="Image" width="245px"></kbd>
+<kbd><img src="./.github/images/3.png" alt="Image" width="300px"></kbd>
+<kbd><img src="./.github/images/4.png" alt="Image" width="200px"></kbd>
+<kbd><img src="./.github/images/5.jpg" alt="Image" width="200px"></kbd>
+<kbd><img src="./.github/images/6.png" alt="Image" width="375px"></kbd>
+<kbd><img src="./.github/images/7.png" alt="Image" width="210px"></kbd>
+<kbd><img src="./.github/images/8.png" alt="Image" width="200px"></kbd>
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>
