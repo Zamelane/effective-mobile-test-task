@@ -1,15 +1,12 @@
 {
   "name": "@effective-mobile-tt/shared",
   "version": "1.0.0",
-  "main": "index.js",
-  "module": "./src/index.ts",
+  "type": "module",
+  "main": "./src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "------- Format -------": "-------",
     "format": "npx biome format . --write"
-  },
-  "exports": {
-    ".": "./src/index.ts"
   },
   "author": "",
   "license": "ISC",

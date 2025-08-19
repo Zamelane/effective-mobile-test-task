@@ -2,11 +2,11 @@ import { dbInstance } from '@effective-mobile-tt/db/src/index'
 import boxen from 'boxen'
 import express from 'express'
 import cors from 'cors'
-import { checkAuthPlugin, jwtReader } from './middlewares/auth'
+import { jwtReader } from './middlewares/auth'
 import { env } from './config/env'
 import { errorHandler } from './middlewares/error'
-import { notFoundHandler } from './middlewares/notFound'
 import { apiRouter } from './routes'
+import path from 'path'
 
 const PORT = env.API_PORT
 
@@ -18,14 +18,17 @@ app
       origin: '*',
     }),
   )
-  // Обработчики токена
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  // Обработчик токена
   .use(jwtReader)
-  .use(checkAuthPlugin)
   // Статика и api-роуты
-  .use(express.static('../../web/build'))
   .use('/api', apiRouter)
-  // Обработчики ошибок
-  .use(notFoundHandler)
+  .use(express.static('../web/build/client'))
+  .get(/\/(.*)/, (req, res) => {
+    res.sendFile(path.join(process.cwd(), '../web/build/client/index.html'))
+  })
+  // Обработчик ошибок
   .use(errorHandler)
 
 async function main() {

@@ -4,6 +4,7 @@ import { insert } from './user.insert'
 import { list } from './user.list'
 import { update } from './user.update'
 import { findByCredentials } from './user.find'
+import { checkEmail } from './user.checkEmail'
 
 export class UserRepository {
   constructor(protected db: DbType) {
@@ -15,4 +16,5 @@ export class UserRepository {
   insert = insert
   update = update
   list = list
+  checkEmail = checkEmail
 }

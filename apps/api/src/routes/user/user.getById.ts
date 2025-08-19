@@ -29,5 +29,7 @@ export const userGetByIdRoute = express
       throw new NotFoundError(`User with ID '${userId}' not found`)
     }
 
-    res.json(user).status(200)
+    const { password, ...userInfo } = user
+
+    res.json(userInfo).status(200)
   })

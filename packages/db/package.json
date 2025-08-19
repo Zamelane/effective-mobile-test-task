@@ -1,17 +1,15 @@
 {
   "name": "@effective-mobile-tt/db",
   "version": "1.0.0",
-  "main": "index.js",
   "module": "./src/index.ts",
   "type": "module",
+  "main": "./src/index.ts",
   "scripts": {
     "--- DB ---": "---",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "tsx ./src/seeders/index.ts",
     "------- Format -------": "-------",
     "format": "npx biome format . --write"
-  },
-  "exports": {
-    ".": "./src/index.ts"
   },
   "author": "",
   "license": "ISC",

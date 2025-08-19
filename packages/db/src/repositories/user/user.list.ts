@@ -7,7 +7,7 @@ export async function list(
   page: number = 1,
   pageSize: number = 8,
 ) {
-  const { password, email, ...nonPwCols } = getTableColumns(users)
+  const { password, ...nonPwCols } = getTableColumns(users)
   const usersList = await this.db
     .select(nonPwCols)
     .from(users)

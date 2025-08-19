@@ -20,7 +20,7 @@ export const users = pgTable('users', {
 
   firstName: varchar('first_name', { length: 128 }).notNull(),
   lastName: varchar('last_name', { length: 128 }).notNull(),
-  middleName: varchar('middle_name', { length: 128 }).notNull(),
+  middleName: varchar('middle_name', { length: 128 }),
 
   birthDate: date('birth_date', { mode: 'date' }).notNull(),
   email: varchar('email', { length: 256 }).notNull().unique(),

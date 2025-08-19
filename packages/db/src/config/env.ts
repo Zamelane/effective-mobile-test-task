@@ -2,12 +2,12 @@ import dotenv from 'dotenv'
 import { z } from 'zod'
 import findupSync from 'findup-sync'
 
-const envFile = findupSync(".env"); // Находит ближайший .env выше в дереве каталогов
+const envFile = findupSync('.env') // Находит ближайший .env выше в дереве каталогов
 
 if (envFile) {
-  dotenv.config({ quiet: true, path: envFile });
+  dotenv.config({ quiet: true, path: envFile })
 } else {
-  console.error(".env не найден!");
+  console.error('.env не найден!')
 }
 
 const envSchema = z.object({

@@ -10,18 +10,10 @@ const paramsZodSchema = z.object({
 export const userBanRoute = express
   .Router()
   .post('/users/:id/ban', async (req, res) => {
-    res
-      .json({
-        userInfo: await banRouteHandler(req, false),
-      })
-      .status(200)
+    res.json(await banRouteHandler(req, false)).status(200)
   })
   .post('/users/:id/unban', async (req, res) => {
-    res
-      .json({
-        userInfo: await banRouteHandler(req, true),
-      })
-      .status(200)
+    res.json(await banRouteHandler(req, true)).status(200)
   })
 
 function paramsValidate(req: Request) {
@@ -40,8 +32,13 @@ function paramsValidate(req: Request) {
 async function banRouteHandler(req: Request, isActive: boolean) {
   const params = paramsValidate(req)
 
-  // Кинет ошибку при неудачной проверке
-  await UserService.checkIsAdmin(req, true)
+  const isPermited = await UserService.compareUserIdsByAuth(req, params.id)
+
+  // Если юзер меняет не себя или пытается разбанить, то проверяем его на админа
+  if (!isPermited || isActive === true) {
+    // Кинет ошибку при неудачной проверке
+    await UserService.checkIsAdmin(req, true)
+  }
 
   const user = isActive
     ? await UserService.unbanUser(params.id)
@@ -51,7 +48,9 @@ async function banRouteHandler(req: Request, isActive: boolean) {
     throw new NotFoundError(`User with ID ${params.id} not found`)
   }
 
+  UserService.updateCacheUserById(user)
+
   const { password, ...userInfo } = user
 
-  return user
+  return userInfo
 }

@@ -1,12 +1,12 @@
-import { db } from '@effective-mobile-tt/db/src'
+import { db } from '@effective-mobile-tt/db'
 import { PasswordService } from './password'
-import { UnauthorizedError } from '@effective-mobile-tt/shared/src'
+import { ForbiddenError, UnauthorizedError } from '@effective-mobile-tt/shared'
 import { env } from '../config/env'
 import jwt from 'jsonwebtoken'
 import { usersCache } from './cache'
 
 import { Request } from 'express'
-import { DBUser } from '@effective-mobile-tt/db/src/models'
+import { DBUser } from '@effective-mobile-tt/db/models'
 import { converter } from '../lib/converter'
 
 export class UserService {
@@ -21,6 +21,10 @@ export class UserService {
 
     if (!user) {
       throw new UnauthorizedError('Invalid credentials')
+    }
+
+    if (!user.isActive) {
+      throw new ForbiddenError('User is banned')
     }
 
     const isPasswordValid = await PasswordService.compare(
@@ -69,6 +73,10 @@ export class UserService {
     }
 
     return userOnly
+  }
+
+  static async updateCacheUserById(user: DBUser) {
+    usersCache.set(converter(user.id, 'string'), user)
   }
 
   static async isAuthorized({ auth }: Request): Promise<DBUser | false> {

@@ -1,19 +1,16 @@
-import { email, z } from 'zod'
+import { z } from 'zod'
 
 export const UserLoginZodSchema = z.object({
   email: z.email('Некорректный email'),
-  password: z
-    .string()
-    .min(8, 'Пароль должен быть не менее 8 символов')
-    .max(256, 'Пароль должен быть не более 256 символов'),
+  password: z.string().max(256, 'Пароль должен быть не более 256 символов'),
 })
 
 export const UserRegistrationZodSchema = z.object({
   firstName: z.string().min(1).max(128),
   lastName: z.string().min(1).max(128),
-  middleName: z.string().min(1).max(128),
+  middleName: z.optional(z.string().min(1).max(128).nullable()),
 
-  birthDate: z.date(),
+  birthDate: z.coerce.date(),
   email: z.email(),
   password: z
     .string()
@@ -24,11 +21,11 @@ export const UserRegistrationZodSchema = z.object({
 })
 
 export const UserUpdateZodSchema = z.object({
-  firstName: z.optional(z.string().min(1).max(128)),
-  lastName: z.optional(z.string().min(1).max(128)),
-  middleName: z.optional(z.string().min(1).max(128)),
+  firstName: z.optional(z.string().max(128)),
+  lastName: z.optional(z.string().max(128)),
+  middleName: z.optional(z.string().max(128).nullable()),
 
-  birthDate: z.optional(z.date()),
+  birthDate: z.optional(z.coerce.date()),
   email: z.optional(z.email()),
   password: z.optional(z.string().min(8).max(256)),
 })

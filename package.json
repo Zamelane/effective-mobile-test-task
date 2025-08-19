@@ -4,8 +4,10 @@
   "main": "index.js",
   "scripts": {
     "env:sync": "npx tsx scripts/check-env-exists.ts",
+    "web:build": "cd ./apps/web && npm run build",
     "api:dev": "cd ./apps/api && npm run dev",
     "db:migrate": "cd ./packages/db && npx drizzle-kit migrate",
+    "db:seed": "cd ./packages/db && npm run seed",
     "test": "echo \"Error: no test specified\" && exit 1",
     "------- Format -------": "-------",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
