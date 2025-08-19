@@ -26,6 +26,14 @@
 <a href="https://docs.360.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FG%2FsBR6g5Su%2Bg4Zy0ZkTVj%2FfUwmFav9FA38Wj3Dl0fQUUMR8W8zrvMeqtM0mvyhBBskEAmkQ4kXOg0TR8ZsXayQ%3D%3D&name=ТЗ_Node.js.docx">📝 Technical specification</a>
 </p>
 
+<h2 id="layout">🎨 Layout</h2>
+
+<p align="center">
+
+<img src="https://picsum.photos/1080/1920" alt="Random Image" width="400px">
+<img src="https://picsum.photos/1080/1920" alt="Random Image" width="400px">
+</p>
+
 <h2 id="technologies">💻 Technologies</h2>
 
 - Vite (React Router v7)
