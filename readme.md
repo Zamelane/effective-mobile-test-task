@@ -136,153 +136,173 @@ For clarity, the prefix "/api" is omitted. Take this into account before using!
 | <kbd>POST /users/:id/unban</kbd> | Unblocking (removing ban) a user by ID. For more information, see [the request details section](#unban-user-detail).
 | <kbd>GET /usersList/:page?pageSize={number}</kbd> | Getting a page-by-page list of users with the ability to specify the page size. For more information, see [the request details section](#users-list-detail).
 
-<h3 id="post-auth-detail">POST /authenticate</h3>
-
-**REQUEST**
-```json
-{
-  "username": "fernandakipper",
-  "password": "4444444"
-}
-```
-
-**RESPONSE**
-```json
-{
-  "token": "OwoMRHsaQwyAgVoc3OXmL1JhMVUYXGGBbCTK0GBgiYitwQwjf0gVoBmkbuyy0pSi"
-}
-```
-
 <h3 id="login-detail">POST /login</h3>
 
 **REQUEST**
 ```json
 {
-    "email": "user@example.com",
-    "password": "securepassword123"
+  "email": "admin@admin.com",
+  "password": "admin!"
 }
 ```
 
 **RESPONSE**
 ```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJkb2VAZXhhbXBsZS5jb20iLCJleHAiOjE1OTY2NjY2NjYifQ.S6_P-jQ7u8i6-z0X-yQ99v9gFWy9j9j9j9j9j9j9j9",
-    "user_id": 12345
+  "userInfo": {
+    "id": 853,
+    "firstName": "Admin",
+    "lastName": "Adminovich",
+    "middleName": "",
+    "birthDate": "2010-10-09T00:00:00.000Z",
+    "email": "admin@admin.com",
+    "role": "admin",
+    "isActive": true,
+    "createdAt": "2025-08-19T15:59:26.943Z",
+    "updatedAt": "2025-08-19T15:59:26.943Z"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
-<h3 id=“registration-detail”>POST /registration</h3>
+<h3 id="registration-detail">POST /registration</h3>
 
 **REQUEST**
 ```json
 {
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john.doe@example.com",
-    "password": "securepassword123",
-    "dateOfBirth": "1990-01-01"
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "password": "TestPass1!"
 }
 ```
 
 **RESPONSE**
 ```json
 {
-    "message": "User successfully registered",
-    "user_id": 12345
+  "userInfo": {
+    "id": 956,
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "middleName": "Отчество",
+    "birthDate": "2025-08-01T00:00:00.000Z",
+    "email": "superTest@mail.ru",
+    "role": "user",
+    "isActive": true,
+    "createdAt": "2025-08-19T18:06:20.273Z",
+    "updatedAt": "2025-08-19T18:06:20.273Z"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
 
-<h3 id=“get-user-detail”>GET /users/:id</h3>
+<h3 id="get-user-detail">GET /users/:id</h3>
 
 **RESPONSE**
 ```json
 {
-    "id": 12345,
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john.doe@example.com",
-    "registrationDate": "2023-01-01T12:00:00Z",
-    "isActive": true
+  "id": 956,
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "role": "user",
+  "isActive": true,
+  "createdAt": "2025-08-19T18:06:20.273Z",
+  "updatedAt": "2025-08-19T18:06:20.273Z"
 }
 ```
 
-<h3 id=“update-user-detail”>POST /users/:id</h3>
+<h3 id="update-user-detail">POST /users/:id</h3>
 
 **REQUEST**
 ```json
 {
-    "firstName": "Jonathan",
-    "email": "jonathan.doe@example.com",
-    "profilePicture": "https://example.com/profile.jpg"
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru"
 }
 ```
 
 **RESPONSE**
 ```json
 {
-    "message": "User profile updated successfully",
-    "updatedFields": ["firstName", "email", "profilePicture"]
+  "id": 956,
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "role": "user",
+  "isActive": true,
+  "createdAt": "2025-08-19T18:06:20.273Z",
+  "updatedAt": "2025-08-19T18:06:20.273Z"
 }
 ```
 
-<h3 id=“ban-user-detail”>POST /users/:id/ban</h3>
-
-**REQUEST**
-```json
-{
-    "reason": "Violation of community guidelines",
-    "duration": "permanent"
-}
-```
+<h3 id="ban-user-detail">POST /users/:id/ban</h3>
 
 **RESPONSE**
 ```json
 {
-    "message": "User banned successfully",
-    "ban_id": 1001,
-    "ban_reason": "Violation of community guidelines"
+  "id": 956,
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "role": "user",
+  "isActive": false,
+  "createdAt": "2025-08-19T18:06:20.273Z",
+  "updatedAt": "2025-08-19T18:06:20.273Z"
 }
 ```
 
-<h3 id=“unban-user-detail”>POST /users/:id/unban</h3>
-
-**REQUEST**
-```json
-{
-    "reason": "Ban lifted by admin"
-}
-```
+<h3 id="unban-user-detail">POST /users/:id/unban</h3>
 
 **RESPONSE**
 ```json
 {
-    "message": "User unbanned successfully",
-    "unban_reason": "Ban lifted by admin"
+  "id": 855,
+  "firstName": "Андрей",
+  "lastName": "Васильев",
+  "middleName": "Петровна",
+  "birthDate": "1992-10-01T00:00:00.000Z",
+  "email": "peter.johnson.474@hotmail.com",
+  "role": "user",
+  "isActive": true,
+  "createdAt": "2025-08-19T15:59:27.046Z",
+  "updatedAt": "2025-08-19T15:59:27.046Z"
 }
 ```
 
-<h3 id=“users-list-detail”>GET /usersList/:page?pageSize={number}</h3>
+<h3 id="users-list-detail">GET /usersList/:page?pageSize={number}</h3>
 
 **RESPONSE**
 ```json
 {
-    "page": 1,
-    "pageSize": 10,
-    "totalUsers": 100,
-    "users": [
-        {
-            "id": 12345,
-            "firstName": "John",
-            "lastName": "Doe",
-            "email": "john.doe@example.com"
-        },
-        {
-            "id": 12346,
-            "firstName": "Jane",
-            "lastName": "Smith",
-            "email": "jane.smith@example.com"
-        }
-    ]
+  "data": [
+    {
+      "id": 853,
+      "firstName": "Admin",
+      "lastName": "Adminovich",
+      "middleName": "",
+      "birthDate": "2010-10-09T00:00:00.000Z",
+      "email": "admin@admin.com",
+      "role": "admin",
+      "isActive": true,
+      "createdAt": "2025-08-19T15:59:26.943Z",
+      "updatedAt": "2025-08-19T15:59:26.943Z"
+    },
+    <...>
+  ],
+  "page": 1,
+  "pageSize": 8
 }
 ```
 
