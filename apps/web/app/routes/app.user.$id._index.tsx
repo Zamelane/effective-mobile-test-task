@@ -90,52 +90,47 @@ export default function Component({
     if (viewUser.id !== loaderData.id) {
       setViewUser(loaderData)
     }
-  }, [loaderData])
-
-  if (user && user.id === viewUser.id) {
-    const { token, ...compare } = user
-    if (!compareObjects(compare, loaderData)) {
+    if (user && user.id === viewUser.id) {
       setUser({
         ...user,
         ...loaderData,
       })
-      console.log('Пользователь обновлён в локальном хранилище')
     }
-  }
+  }, [loaderData])
 
   const userInfo: Array<{
     icon: LucideIcon
     text: string | undefined | null
     color?: string
   }> = [
-    { icon: FingerprintIcon, text: viewUser.id.toString() },
-    {
-      icon: ALargeSmallIcon,
-      text: [viewUser.lastName, viewUser.firstName, viewUser.middleName].join(
-        ' ',
-      ),
-    },
-    { icon: MailIcon, text: viewUser.email },
-    { icon: CakeIcon, text: viewUser.birthDate.toString().split('T')[0] },
-    {
-      icon: CrownIcon,
-      text: viewUser.role === 'admin' ? 'Администратор' : 'Пользователь',
-      color: viewUser.role === 'admin' ? 'text-indigo-600' : '',
-    },
-    {
-      icon: ConstructionIcon,
-      text: viewUser.isActive ? 'Не забанен' : 'Забанен',
-      color: viewUser.isActive ? 'text-green-500' : 'text-red-500',
-    },
-    {
-      icon: ClockPlusIcon,
-      text: viewUser.createdAt.toString().split('T')[0],
-    },
-    {
-      icon: ClockFadingIcon,
-      text: viewUser.updatedAt.toString().split('T')[0],
-    },
-  ]
+      { icon: FingerprintIcon, text: viewUser.id.toString() },
+      {
+        icon: ALargeSmallIcon,
+        text: [viewUser.lastName, viewUser.firstName, viewUser.middleName].join(
+          ' ',
+        ),
+      },
+      { icon: MailIcon, text: viewUser.email },
+      { icon: CakeIcon, text: viewUser.birthDate.toString().split('T')[0] },
+      {
+        icon: CrownIcon,
+        text: viewUser.role === 'admin' ? 'Администратор' : 'Пользователь',
+        color: viewUser.role === 'admin' ? 'text-indigo-600' : '',
+      },
+      {
+        icon: ConstructionIcon,
+        text: viewUser.isActive ? 'Не забанен' : 'Забанен',
+        color: viewUser.isActive ? 'text-green-500' : 'text-red-500',
+      },
+      {
+        icon: ClockPlusIcon,
+        text: viewUser.createdAt.toString().split('T')[0],
+      },
+      {
+        icon: ClockFadingIcon,
+        text: viewUser.updatedAt.toString().split('T')[0],
+      },
+    ]
 
   // Блокировка (бан/разбран)
   const navigate = useNavigate()
@@ -171,18 +166,18 @@ export default function Component({
 
       // Обновляем данные на странице
       setViewUser(res)
-      ;(res.isActive ? toast.success : toast.error)(
-        'Пользователь ' + (res.isActive ? 'разбанен' : 'забанен'),
-        {
-          icon: res.isActive ? <HandHeartIcon /> : <FlagIcon />,
-          description: `${res.lastName} ${res.firstName[0]}.${res.middleName?.[0]}.`,
-          className: cn(
-            res.isActive
-              ? 'bg-gradient-to-l from-stone-100 via-teal-100 to-green-200'
-              : 'bg-gradient-to-l from-stone-100 via-rose-100 to-red-200',
-          ),
-        },
-      )
+        ; (res.isActive ? toast.success : toast.error)(
+          'Пользователь ' + (res.isActive ? 'разбанен' : 'забанен'),
+          {
+            icon: res.isActive ? <HandHeartIcon /> : <FlagIcon />,
+            description: `${res.lastName} ${res.firstName[0]}.${res.middleName?.[0]}.`,
+            className: cn(
+              res.isActive
+                ? 'bg-gradient-to-l from-stone-100 via-teal-100 to-green-200'
+                : 'bg-gradient-to-l from-stone-100 via-rose-100 to-red-200',
+            ),
+          },
+        )
     } finally {
       setIsBanLoading(false)
     }

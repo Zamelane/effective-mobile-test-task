@@ -23,11 +23,13 @@ export const userGetByIdRoute = express
       throw new BadRequestError('You are not allowed to view this user')
     }
 
-    const userInfo = await db.user.getById(userId)
+    const user = await db.user.getById(userId)
 
-    if (!userInfo) {
+    if (!user) {
       throw new NotFoundError(`User with ID '${userId}' not found`)
     }
+
+    const { password, ...userInfo } = user
 
     res.json(userInfo).status(200)
   })

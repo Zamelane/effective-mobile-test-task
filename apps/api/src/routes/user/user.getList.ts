@@ -1,6 +1,7 @@
 import { db } from '@effective-mobile-tt/db/src'
 import { BadRequestError } from '@effective-mobile-tt/shared/src'
 import express from 'express'
+import { UserService } from '../../services/user'
 
 export const userGetListRoute = express
   .Router()
@@ -14,6 +15,8 @@ export const userGetListRoute = express
     if (isNaN(page) || page <= 0) {
       throw new BadRequestError('Invalid page number')
     }
+
+    await UserService.checkIsAdmin(req, true)
 
     const list = await db.user.list(page, pageSize)
 
