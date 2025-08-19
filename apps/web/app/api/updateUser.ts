@@ -2,7 +2,7 @@ import { api } from '~/lib/fetcher'
 import type { UserRegistrationZod } from '@effective-mobile-tt/shared'
 import type { ErrorResponse, ValidationErrorResponse } from '~/types'
 import type { DBUser } from '@effective-mobile-tt/db/src/models/user/user.types'
-import type { UserUpdateZod } from '@effective-mobile-tt/shared/src/types/user/schema';
+import type { UserUpdateZod } from '@effective-mobile-tt/shared/src/types/user/schema'
 
 export type UpdateProps = UserUpdateZod
 
@@ -15,8 +15,10 @@ export type UpdateUserResponse =
 
 export async function updateUser(
   userId: number,
-  newData: UpdateProps
-): Promise<UserResponse | { error: string } | { error: Record<string, string[]> }> {
+  newData: UpdateProps,
+): Promise<
+  UserResponse | { error: string } | { error: Record<string, string[]> }
+> {
   try {
     const res = await api
       .post<UpdateUserResponse>('users/' + userId, { json: newData })

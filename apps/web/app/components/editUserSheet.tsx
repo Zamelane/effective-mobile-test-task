@@ -1,17 +1,26 @@
-import { Button } from "./ui/button";
-import { DatePicker } from "./ui/datePicker";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
-import { useState } from "react";
-import { UserUpdateZodSchema } from "@effective-mobile-tt/shared";
-import { updateUser } from "~/api/updateUser";
-import type { UserResponse } from "~/api/login";
-import { Form } from "react-router";
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { AlertCircleIcon } from "lucide-react";
-import { Spinner } from "./spinner";
-import { toast } from "sonner";
+import { Button } from './ui/button'
+import { DatePicker } from './ui/datePicker'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from './ui/sheet'
+import { useState } from 'react'
+import { UserUpdateZodSchema } from '@effective-mobile-tt/shared'
+import { updateUser } from '~/api/updateUser'
+import type { UserResponse } from '~/api/login'
+import { Form } from 'react-router'
+import { Alert, AlertDescription, AlertTitle } from './ui/alert'
+import { AlertCircleIcon } from 'lucide-react'
+import { Spinner } from './spinner'
+import { toast } from 'sonner'
 
 export type FormErrors = Record<string, string[]> | string | null
 
@@ -36,11 +45,7 @@ type EditSheetProps = {
   user: UserResponse
   setUser: StateAction<UserResponse>
 }
-export function EditUserSheet({
-  children,
-  user,
-  setUser,
-}: EditSheetProps) {
+export function EditUserSheet({ children, user, setUser }: EditSheetProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [errors, setErrors] = useState<FormErrors>(null)
   const [loading, setLoading] = useState(false)
@@ -78,7 +83,7 @@ export function EditUserSheet({
 
       setUser({
         ...user,
-        ...res
+        ...res,
       })
 
       toast.success('Пользователь обновлен')
@@ -90,56 +95,63 @@ export function EditUserSheet({
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger>
-        {children}
-      </SheetTrigger>
+      <SheetTrigger>{children}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Редактирование пользователя</SheetTitle>
           <SheetDescription>Это действие необратимо</SheetDescription>
         </SheetHeader>
 
-        {
-          errors && (
-            <Alert variant="destructive">
-              <AlertCircleIcon />
-              <AlertTitle>Ошибка обновления данных</AlertTitle>
-              <AlertDescription>
-                <p>{typeof errors === 'string' ? errors : 'Исправьте ошибки ввода:'}</p>
-                {
-                  typeof errors !== 'string' && (
-                    <ul className="list-inside list-disc text-sm">
-                      { Object.keys(errors).map((key, i) => (
-                        <li key={i}>{errors[key]}</li>
-                      )) }
-                      { Object.keys(errors).length === 0 && <li>Ошибка сервера</li> }
-                    </ul>
-                  )
-                }
-              </AlertDescription>
-            </Alert>
-          )
-        }
+        {errors && (
+          <Alert variant='destructive'>
+            <AlertCircleIcon />
+            <AlertTitle>Ошибка обновления данных</AlertTitle>
+            <AlertDescription>
+              <p>
+                {typeof errors === 'string'
+                  ? errors
+                  : 'Исправьте ошибки ввода:'}
+              </p>
+              {typeof errors !== 'string' && (
+                <ul className='list-inside list-disc text-sm'>
+                  {Object.keys(errors).map((key, i) => (
+                    <li key={i}>{errors[key]}</li>
+                  ))}
+                  {Object.keys(errors).length === 0 && <li>Ошибка сервера</li>}
+                </ul>
+              )}
+            </AlertDescription>
+          </Alert>
+        )}
 
-        <Form id="updateForm" onSubmit={updateHandler}>
-          <div className="grid flex-1 auto-rows-min gap-6 px-4">
+        <Form id='updateForm' onSubmit={updateHandler}>
+          <div className='grid flex-1 auto-rows-min gap-6 px-4'>
             {fields.map((field, key) => (
               <div key={key} className='grid gap-3'>
                 <Label htmlFor={field.name}>
                   {field.title}
-                  {field.required && <span className="text-red-500">*</span>}
+                  {field.required && <span className='text-red-500'>*</span>}
                 </Label>
                 {field.type === 'date' ? (
                   <DatePicker
                     id={field.name}
                     name={field.name}
-                    defaultValue={(user as unknown as { [key: string]: string | number })[field.name] ?? ""}
-                    required />
+                    defaultValue={
+                      (user as unknown as { [key: string]: string | number })[
+                        field.name
+                      ] ?? ''
+                    }
+                    required
+                  />
                 ) : (
                   <Input
                     id={field.name}
                     name={field.name}
-                    defaultValue={(user as unknown as { [key: string]: string | number })[field.name] ?? ""}
+                    defaultValue={
+                      (user as unknown as { [key: string]: string | number })[
+                        field.name
+                      ] ?? ''
+                    }
                     type={field.type}
                     placeholder={field.title}
                     required={field.required}
@@ -155,15 +167,11 @@ export function EditUserSheet({
           </div>
         </Form>
         <SheetFooter>
-          <Button type="submit" form="updateForm">
-            {
-              loading
-                ? <Spinner  />
-                : 'Сохранить изменения'
-            }
+          <Button type='submit' form='updateForm'>
+            {loading ? <Spinner /> : 'Сохранить изменения'}
           </Button>
           <SheetClose asChild>
-            <Button variant="outline">Отмена</Button>
+            <Button variant='outline'>Отмена</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

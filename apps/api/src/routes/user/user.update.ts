@@ -29,9 +29,7 @@ export const userUpdateRoute = express
 
     const { password, ...userInfo } = user
 
-    res
-      .json(userInfo)
-      .status(200)
+    res.json(userInfo).status(200)
   })
 
 function paramsValidate(req: Request) {
@@ -53,7 +51,6 @@ async function bodyValidate(req: Request) {
   const bodyValidationSchema = isAdmin
     ? UserUpdateZodSchema.merge(UserChangeRoleZodSchema.partial())
     : UserUpdateZodSchema
-
 
   const bodyValidationResult = bodyValidationSchema.safeParse(req.body)
 

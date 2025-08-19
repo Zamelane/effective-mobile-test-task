@@ -2,9 +2,7 @@ import { z } from 'zod'
 
 export const UserLoginZodSchema = z.object({
   email: z.email('Некорректный email'),
-  password: z
-    .string()
-    .max(256, 'Пароль должен быть не более 256 символов'),
+  password: z.string().max(256, 'Пароль должен быть не более 256 символов'),
 })
 
 export const UserRegistrationZodSchema = z.object({

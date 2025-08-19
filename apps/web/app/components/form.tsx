@@ -1,10 +1,6 @@
 import { Form } from 'react-router'
 import { Button } from './ui/button'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from './ui/card'
+import { Card, CardContent, CardHeader } from './ui/card'
 import { Label } from './ui/label'
 import { DatePicker } from './ui/datePicker'
 import { Input } from './ui/input'

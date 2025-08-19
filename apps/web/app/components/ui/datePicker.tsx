@@ -16,7 +16,9 @@ export function DatePicker(
 ) {
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>(
-    typeof inputProps.defaultValue === 'string' ? new Date(inputProps.defaultValue) : undefined
+    typeof inputProps.defaultValue === 'string'
+      ? new Date(inputProps.defaultValue)
+      : undefined,
   )
 
   return (

@@ -51,12 +51,22 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   return res
 }
 
-export function meta({
-  loaderData
-}: Route.MetaArgs) {
+export function meta({ loaderData }: Route.MetaArgs) {
   return [
-    { title: typeof loaderData !== 'string' ? `Просмотр пользователя "${loaderData.lastName} ${loaderData.firstName[0]}.${loaderData.middleName?.[0]}."` : 'Страница просмотра пользователя' },
-    { name: 'description', content: 'Детальная информация о пользователе' + (typeof loaderData === 'string' ? '' : `${loaderData.lastName} ${loaderData.firstName[0]}.${loaderData.middleName?.[0]}.`) },
+    {
+      title:
+        typeof loaderData !== 'string'
+          ? `Просмотр пользователя "${loaderData.lastName} ${loaderData.firstName[0]}.${loaderData.middleName?.[0]}."`
+          : 'Страница просмотра пользователя',
+    },
+    {
+      name: 'description',
+      content:
+        'Детальная информация о пользователе' +
+        (typeof loaderData === 'string'
+          ? ''
+          : `${loaderData.lastName} ${loaderData.firstName[0]}.${loaderData.middleName?.[0]}.`),
+    },
   ]
 }
 
@@ -98,29 +108,34 @@ export default function Component({
     text: string | undefined | null
     color?: string
   }> = [
-      { icon: FingerprintIcon, text: viewUser.id.toString() },
-      { icon: ALargeSmallIcon, text: [viewUser.lastName, viewUser.firstName, viewUser.middleName].join(' ') },
-      { icon: MailIcon, text: viewUser.email },
-      { icon: CakeIcon, text: viewUser.birthDate.toString().split('T')[0] },
-      {
-        icon: CrownIcon,
-        text: viewUser.role === 'admin' ? 'Администратор' : 'Пользователь',
-        color: viewUser.role === 'admin' ? 'text-indigo-600' : '',
-      },
-      {
-        icon: ConstructionIcon,
-        text: viewUser.isActive ? 'Не забанен' : 'Забанен',
-        color: viewUser.isActive ? 'text-green-500' : 'text-red-500',
-      },
-      {
-        icon: ClockPlusIcon,
-        text: viewUser.createdAt.toString().split('T')[0],
-      },
-      {
-        icon: ClockFadingIcon,
-        text: viewUser.updatedAt.toString().split('T')[0],
-      },
-    ]
+    { icon: FingerprintIcon, text: viewUser.id.toString() },
+    {
+      icon: ALargeSmallIcon,
+      text: [viewUser.lastName, viewUser.firstName, viewUser.middleName].join(
+        ' ',
+      ),
+    },
+    { icon: MailIcon, text: viewUser.email },
+    { icon: CakeIcon, text: viewUser.birthDate.toString().split('T')[0] },
+    {
+      icon: CrownIcon,
+      text: viewUser.role === 'admin' ? 'Администратор' : 'Пользователь',
+      color: viewUser.role === 'admin' ? 'text-indigo-600' : '',
+    },
+    {
+      icon: ConstructionIcon,
+      text: viewUser.isActive ? 'Не забанен' : 'Забанен',
+      color: viewUser.isActive ? 'text-green-500' : 'text-red-500',
+    },
+    {
+      icon: ClockPlusIcon,
+      text: viewUser.createdAt.toString().split('T')[0],
+    },
+    {
+      icon: ClockFadingIcon,
+      text: viewUser.updatedAt.toString().split('T')[0],
+    },
+  ]
 
   // Блокировка (бан/разбран)
   const navigate = useNavigate()
@@ -130,7 +145,9 @@ export default function Component({
     try {
       setIsBanLoading(true)
 
-      const res = viewUser.isActive ? await banUser(viewUser.id) : await unbanUser(viewUser.id)
+      const res = viewUser.isActive
+        ? await banUser(viewUser.id)
+        : await unbanUser(viewUser.id)
 
       if (typeof res === 'string') {
         // TODO: toast с ошибкой
@@ -148,23 +165,25 @@ export default function Component({
         // Обновляем локальное хранилище
         setUser({
           ...user,
-          ...res
+          ...res,
         })
       }
 
       // Обновляем данные на странице
-      setViewUser(res);
+      setViewUser(res)
 
-      (res.isActive ? toast.success : toast.error)('Пользователь ' + (res.isActive ? 'разбанен' : 'забанен'), {
-        icon: res.isActive ? <HandHeartIcon/> : <FlagIcon/>,
-        description: `${res.lastName} ${res.firstName[0]}.${res.middleName?.[0]}.`,
-        className: cn(
-          res.isActive
+      ;(res.isActive ? toast.success : toast.error)(
+        'Пользователь ' + (res.isActive ? 'разбанен' : 'забанен'),
+        {
+          icon: res.isActive ? <HandHeartIcon /> : <FlagIcon />,
+          description: `${res.lastName} ${res.firstName[0]}.${res.middleName?.[0]}.`,
+          className: cn(
+            res.isActive
               ? 'bg-gradient-to-l from-stone-100 via-teal-100 to-green-200'
-              : 'bg-gradient-to-l from-stone-100 via-rose-100 to-red-200'
-        ),
-        
-      })
+              : 'bg-gradient-to-l from-stone-100 via-rose-100 to-red-200',
+          ),
+        },
+      )
     } finally {
       setIsBanLoading(false)
     }
@@ -178,8 +197,7 @@ export default function Component({
           <AvatarImage src='https://github.com/shadcn.png' alt='Avatar' />
           <AvatarFallback className='text-5xl'>
             {(
-              (viewUser.firstName[0] ?? '?') +
-              (viewUser.lastName[0] ?? '??')
+              (viewUser.firstName[0] ?? '?') + (viewUser.lastName[0] ?? '??')
             ).toUpperCase()}
           </AvatarFallback>
         </Avatar>
@@ -204,7 +222,7 @@ export default function Component({
                         navigator.clipboard.writeText(item.text)
                         toast.success('Текст скопирован!', {
                           description: item.text,
-                          icon: <item.icon/>
+                          icon: <item.icon />,
                         })
                       }
                     }}
@@ -229,27 +247,25 @@ export default function Component({
               Редактировать
             </Button>
           </EditUserSheet>
-          <Button className={cn(
-            viewUser.isActive
-              ? 'bg-gradient-to-l from-stone-100 via-rose-100 to-red-200'
-              : 'bg-gradient-to-l from-stone-100 via-teal-100 to-green-200'
-          )}
+          <Button
+            className={cn(
+              viewUser.isActive
+                ? 'bg-gradient-to-l from-stone-100 via-rose-100 to-red-200'
+                : 'bg-gradient-to-l from-stone-100 via-teal-100 to-green-200',
+            )}
             onClick={banUserHandler}
           >
-            {viewUser.isActive
-              ? (
-                <>
-                  <FlagIcon />
-                  {isBanLoading ? 'Баню...' : 'Забанить'}
-                </>
-              )
-              : (
-                <>
-                  <HandHeartIcon />
-                  {isBanLoading ? 'Разбаниваю...' : 'Разбанить'}
-                </>
-              )
-            }
+            {viewUser.isActive ? (
+              <>
+                <FlagIcon />
+                {isBanLoading ? 'Баню...' : 'Забанить'}
+              </>
+            ) : (
+              <>
+                <HandHeartIcon />
+                {isBanLoading ? 'Разбаниваю...' : 'Разбанить'}
+              </>
+            )}
           </Button>
         </CardContent>
       </Card>

@@ -27,7 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <AuthProvider>{children}</AuthProvider>
         <ScrollRestoration />
         <Scripts />
-        <Toaster richColors position='bottom-center'/>
+        <Toaster richColors position='bottom-center' />
       </body>
     </html>
   )

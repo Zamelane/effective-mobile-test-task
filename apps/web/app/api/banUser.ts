@@ -4,9 +4,16 @@ import type { UserResponse } from './login'
 
 type GetUserResponse = UserResponse | ErrorResponse
 
-export async function banUser(userId: number, _newStatus: boolean = false): Promise<UserResponse | string> {
+export async function banUser(
+  userId: number,
+  _newStatus: boolean = false,
+): Promise<UserResponse | string> {
   try {
-    const result = await api.post<GetUserResponse>(`users/${userId}/` + (_newStatus ? 'unban' : 'ban')).json()
+    const result = await api
+      .post<GetUserResponse>(
+        `users/${userId}/` + (_newStatus ? 'unban' : 'ban'),
+      )
+      .json()
 
     if ('id' in result) {
       return result

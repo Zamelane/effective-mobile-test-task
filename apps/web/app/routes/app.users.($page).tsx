@@ -40,11 +40,14 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   return res
 }
 
-export function meta({
-  loaderData
-}: Route.MetaArgs) {
+export function meta({ loaderData }: Route.MetaArgs) {
   return [
-    { title: typeof loaderData !== 'string' ? `Просмотр страницы №${loaderData.page}` : 'Страница просмотра списка пользователей' },
+    {
+      title:
+        typeof loaderData !== 'string'
+          ? `Просмотр страницы №${loaderData.page}`
+          : 'Страница просмотра списка пользователей',
+    },
     { name: 'description', content: 'Страница списка пользователей' },
   ]
 }

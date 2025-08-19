@@ -10,14 +10,10 @@ const paramsZodSchema = z.object({
 export const userBanRoute = express
   .Router()
   .post('/users/:id/ban', async (req, res) => {
-    res
-      .json(await banRouteHandler(req, false))
-      .status(200)
+    res.json(await banRouteHandler(req, false)).status(200)
   })
   .post('/users/:id/unban', async (req, res) => {
-    res
-      .json(await banRouteHandler(req, true))
-      .status(200)
+    res.json(await banRouteHandler(req, true)).status(200)
   })
 
 function paramsValidate(req: Request) {
