@@ -49,17 +49,23 @@ async function bodyValidate(req: Request, userId: number) {
   const isAdmin = await UserService.checkIsAdmin(req)
 
   const UserUpdateZodSchema = schema.extend({
-  email: schema.shape.email.refine(async (email) => !email || !((await db.user.checkEmail(email)) !== userId), {
-    message: 'Email уже занят',
-    path: ['email'],
+    email: schema.shape.email.refine(
+      async (email) =>
+        !email || !((await db.user.checkEmail(email)) !== userId),
+      {
+        message: 'Email уже занят',
+        path: ['email'],
+      },
+    ),
   })
-})
 
   const bodyValidationSchema = isAdmin
     ? UserUpdateZodSchema.merge(UserChangeRoleZodSchema.partial())
     : UserUpdateZodSchema
 
-  const bodyValidationResult = await bodyValidationSchema.safeParseAsync(req.body)
+  const bodyValidationResult = await bodyValidationSchema.safeParseAsync(
+    req.body,
+  )
 
   if (!bodyValidationResult.success) {
     const errors = bodyValidationResult.error.flatten()

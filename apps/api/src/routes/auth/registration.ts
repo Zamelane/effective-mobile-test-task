@@ -8,16 +8,21 @@ import { db } from '@effective-mobile-tt/db/src'
 import { UserService } from '../../services/user'
 
 const UserRegistrationZodSchema = schema.extend({
-  email: schema.shape.email.refine(async (email) => !(await db.user.checkEmail(email)), {
-    message: 'Email уже занят',
-    path: ['email'],
-  })
+  email: schema.shape.email.refine(
+    async (email) => !(await db.user.checkEmail(email)),
+    {
+      message: 'Email уже занят',
+      path: ['email'],
+    },
+  ),
 })
 
 export const registrationRoute = express
   .Router()
   .post('/registration', async (req, res) => {
-    const validationResult = await UserRegistrationZodSchema.safeParseAsync(req.body)
+    const validationResult = await UserRegistrationZodSchema.safeParseAsync(
+      req.body,
+    )
 
     if (!validationResult.success) {
       const errors = validationResult.error.flatten()

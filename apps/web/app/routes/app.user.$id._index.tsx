@@ -171,7 +171,6 @@ export default function Component({
 
       // Обновляем данные на странице
       setViewUser(res)
-
       ;(res.isActive ? toast.success : toast.error)(
         'Пользователь ' + (res.isActive ? 'разбанен' : 'забанен'),
         {
