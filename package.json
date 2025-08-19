@@ -6,6 +6,7 @@
     "env:sync": "npx tsx scripts/check-env-exists.ts",
     "web:build": "cd ./apps/web && npm run build",
     "api:dev": "cd ./apps/api && npm run dev",
+    "db:generate": "cd ./packages/db && npx drizzle-kit generate",
     "db:migrate": "cd ./packages/db && npx drizzle-kit migrate",
     "db:seed": "cd ./packages/db && npm run seed",
     "test": "echo \"Error: no test specified\" && exit 1",
