@@ -12,6 +12,7 @@ import './app.css'
 import { useNavigation } from 'react-router'
 import { Spinner } from './components/spinner'
 import { AuthProvider } from './context'
+import { Toaster } from './components/ui/sonner'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,6 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <AuthProvider>{children}</AuthProvider>
         <ScrollRestoration />
         <Scripts />
+        <Toaster richColors position='bottom-center'/>
       </body>
     </html>
   )

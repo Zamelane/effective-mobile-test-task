@@ -11,7 +11,7 @@ export const UserLoginZodSchema = z.object({
 export const UserRegistrationZodSchema = z.object({
   firstName: z.string().min(1).max(128),
   lastName: z.string().min(1).max(128),
-  middleName: z.string().min(1).max(128),
+  middleName: z.optional(z.string().min(1).max(128).nullable()),
 
   birthDate: z.coerce.date(),
   email: z.email(),
@@ -26,9 +26,9 @@ export const UserRegistrationZodSchema = z.object({
 export const UserUpdateZodSchema = z.object({
   firstName: z.optional(z.string().min(1).max(128)),
   lastName: z.optional(z.string().min(1).max(128)),
-  middleName: z.optional(z.string().min(1).max(128)),
+  middleName: z.optional(z.string().min(1).max(128).nullable()),
 
-  birthDate: z.optional(z.date()),
+  birthDate: z.optional(z.coerce.date()),
   email: z.optional(z.email()),
   password: z.optional(z.string().min(8).max(256)),
 })

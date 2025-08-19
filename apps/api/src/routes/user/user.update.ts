@@ -25,12 +25,12 @@ export const userUpdateRoute = express
       throw new NotFoundError(`User with ID ${params.id} not found`)
     }
 
+    UserService.updateCacheUserById(user)
+
     const { password, ...userInfo } = user
 
     res
-      .json({
-        userInfo,
-      })
+      .json(userInfo)
       .status(200)
   })
 
@@ -48,14 +48,14 @@ function paramsValidate(req: Request) {
 }
 
 async function bodyValidate(req: Request) {
-  const bodyValidationSchema = UserUpdateZodSchema
   const isAdmin = await UserService.checkIsAdmin(req)
 
-  if (isAdmin) {
-    bodyValidationSchema.extend(UserChangeRoleZodSchema.partial())
-  }
+  const bodyValidationSchema = isAdmin
+    ? UserUpdateZodSchema.merge(UserChangeRoleZodSchema.partial())
+    : UserUpdateZodSchema
 
-  const bodyValidationResult = bodyValidationSchema.safeParse(req.params)
+
+  const bodyValidationResult = bodyValidationSchema.safeParse(req.body)
 
   if (!bodyValidationResult.success) {
     const errors = bodyValidationResult.error.flatten()

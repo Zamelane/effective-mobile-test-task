@@ -40,17 +40,19 @@ function Button({
   variant,
   size,
   asChild = false,
+  skipAnim = false,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
+    skipAnim?: boolean
   }) {
   const Comp = asChild ? Slot : 'button'
 
   return (
     <Comp
       data-slot='button'
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, className }), !skipAnim && 'active:scale-95 hover:scale-105 hover:rotate-1')}
       {...props}
     />
   )

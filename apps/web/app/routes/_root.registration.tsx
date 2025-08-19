@@ -9,8 +9,8 @@ import { AuthForm, type FormErrors, type FormField } from '~/components/form'
 import { registartion } from '~/api/registration'
 
 const fields: FormField[] = [
-  { title: 'Фамилия', name: 'firstName', type: 'text' },
-  { title: 'Имя', name: 'lastName', type: 'text' },
+  { title: 'Фамилия', name: 'lastName', type: 'text' },
+  { title: 'Имя', name: 'firstName', type: 'text' },
   { title: 'Отчество', name: 'middleName', type: 'text' },
   { title: 'Дата рождения', name: 'birthDate', type: 'date' },
   { title: 'Эл. почта', name: 'email', type: 'email' },
@@ -19,8 +19,8 @@ const fields: FormField[] = [
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'Registration' },
-    { name: 'description', content: 'Login page' },
+    { title: 'Регистрация' },
+    { name: 'description', content: 'Страница регистрации' },
   ]
 }
 

@@ -14,7 +14,7 @@ const fields: FormField[] = [
 ]
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: 'Login' }, { name: 'description', content: 'Login page' }]
+  return [{ title: 'Вход' }, { name: 'description', content: 'Страница входа' }]
 }
 
 export default function Page({}: Route.ComponentProps) {
@@ -33,13 +33,6 @@ function FormComponent() {
   const [errors, setErrors] = useState<
     Record<string, string[]> | string | null
   >(null)
-
-  const getError = (key: string) => {
-    if (errors && typeof errors !== 'string') {
-      return errors[key] || []
-    }
-    return []
-  }
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

@@ -60,7 +60,7 @@ export default function Layout() {
             return (
               <Button
                 key={key}
-                onClick={() => navigate(item.href)}
+                onClick={() => navigate(item.href, { replace: true })}
                 className='cursor-pointer'
               >
                 <item.icon />

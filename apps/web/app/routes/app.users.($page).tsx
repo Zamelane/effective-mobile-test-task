@@ -40,10 +40,21 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   return res
 }
 
+export function meta({
+  loaderData
+}: Route.MetaArgs) {
+  return [
+    { title: typeof loaderData !== 'string' ? `Просмотр страницы №${loaderData.page}` : 'Страница просмотра списка пользователей' },
+    { name: 'description', content: 'Страница списка пользователей' },
+  ]
+}
+
 export default function Component({
   params,
   loaderData,
 }: Route.ComponentProps) {
+  const navigate = useNavigate()
+
   if (typeof loaderData === 'string') {
     return (
       <div className='flex flex-col gap-2'>
@@ -52,8 +63,6 @@ export default function Component({
       </div>
     )
   }
-
-  const navigate = useNavigate()
 
   return (
     <div className='flex flex-col gap-2'>
@@ -79,9 +88,8 @@ export default function Component({
             </TableHeader>
             <TableBody>
               {loaderData.data.map((user) => {
-                const [isOpen, setIsOpen] = useState(false)
                 return (
-                  <TableRow>
+                  <TableRow className={cn(!user.isActive && 'text-red-400')}>
                     <TableCell>{user.id}</TableCell>
                     <TableCell>{user.lastName}</TableCell>
                     <TableCell>{user.firstName}</TableCell>
@@ -94,12 +102,11 @@ export default function Component({
                     <TableCell>
                       <Button
                         variant='outline'
-                        className='cursor-pointer w-full'
-                        onMouseEnter={() => setIsOpen(true)}
-                        onMouseLeave={() => setIsOpen(false)}
+                        className='cursor-pointer w-full group'
                         onClick={() => navigate('/app/user/' + user.id)}
                       >
-                        {isOpen ? <FolderOpen /> : <Folder />}
+                        <Folder className='group-hover:hidden' />
+                        <FolderOpen className='hidden group-hover:block' />
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -109,14 +116,19 @@ export default function Component({
           </Table>
 
           <div className='flex justify-end gap-2 items-center'>
-            <Button size='sm' variant='outline' disabled={loaderData.page <= 1}>
+            <Button
+              size='sm'
+              variant='outline'
+              disabled={loaderData.page <= 1}
+              onClick={() => navigate('/app/users/' + (loaderData.page - 1))}
+            >
               <ChevronLeftIcon /> Предыдущая
             </Button>
             <Button
               size='sm'
               variant='outline'
               disabled={loaderData.data.length < loaderData.pageSize}
-              onClick={() => navigate('/app/usersList/' + loaderData.page)}
+              onClick={() => navigate('/app/users/' + (loaderData.page + 1))}
             >
               Следующая <ChevronRightIcon />
             </Button>

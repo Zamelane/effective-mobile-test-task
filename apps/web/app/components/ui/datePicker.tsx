@@ -15,7 +15,9 @@ export function DatePicker(
   >,
 ) {
   const [open, setOpen] = React.useState(false)
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
+  const [date, setDate] = React.useState<Date | undefined>(
+    typeof inputProps.defaultValue === 'string' ? new Date(inputProps.defaultValue) : undefined
+  )
 
   return (
     <div className='flex flex-col gap-3'>
@@ -32,6 +34,7 @@ export function DatePicker(
             variant='outline'
             id='date'
             className='w-full justify-between font-normal'
+            skipAnim
           >
             {date ? date.toLocaleDateString() : 'Выбрать дату'}
             <ChevronDownIcon />

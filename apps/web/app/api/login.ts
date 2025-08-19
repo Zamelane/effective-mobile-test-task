@@ -43,7 +43,7 @@ export async function login(
       }
       console.error(authData)
       throw new Error(
-        `Server response status: ${authData.error.status} (${authData.error.code})`,
+        `Server response status: ${authData.error.status} (${authData.error.code})\nMessage: ${authData.error.message}`,
       )
     }
 
