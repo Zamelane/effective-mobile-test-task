@@ -8,9 +8,13 @@
 
 <p align="center">
 <a href="#tech">Technologies</a>
+|
 <a href="#started">Getting Started</a>
+|
 <a href="#routes">API Endpoints</a>
+|
 <a href="#colab">Collaborators</a>
+|
 <a href="#contribute">Contribute</a> 
 </p>
 
@@ -65,19 +69,21 @@ To implement the project, the following software components are required:
 
 <h3>Cloning</h3>
 
-Copy this repository and go to its root directory
+Copy this repository and navigate to its root directory, and then install the dependencies:
 
 ```bash
 git clone https://github.com/Zamelane/effective-mobile-test-task
+cd effective-mobile-test-task
+npm i
 ```
 
 <h3>Config .env variables</h2>
 
-It is necessary to create a configuration file with the ".env" extension.
+It is necessary to create a configuration file with the `.env` extension.
 
-To do this, use the .env.example file as a template. In the created .env file, you need to enter your credentials for accessing the database and other parameters, if necessary.
+To do this, use the `.env.example` file as a template. In the created `.env` file, you need to enter your credentials for accessing the database and other parameters, if necessary.
 
-During the system initialization task, it is recommended to make changes exclusively to the section on DATABASE configuration. It is important to specify the correct connection parameters to your database.
+During the system initialization task, it is recommended to make changes exclusively to the section on `DATABASE` configuration. It is important to specify the correct connection parameters to your database.
 
 ```yaml
 ############
@@ -104,7 +110,7 @@ Before starting the project, the following steps must be performed::
 
 ###### 1. Creating a database structure and initializing it with test data:
 
-* Make sure that the database specified in the .env configuration file exists.
+* Make sure that the database specified in the `.env` configuration file exists.
 * Check the availability of the public schema in the database and its current state (it should be empty).
 
 ###### 2. Generating tables in the database:
@@ -139,11 +145,15 @@ After completing the above steps, start the server and follow the link displayed
 npm run api:dev
 ```
 
+*Data from the administrator account*<br>
+Login: `admin@admin.com`<br>
+Password: `admin!`
+
 <h2 id="routes">📍 API Endpoints</h2>
 
 The main API routes are shown here and the expected request types are indicated.
 
-For clarity, the prefix "/api" is omitted. Take this into account before using!
+For clarity, the prefix `/api` is omitted. Take this into account before using!
 ​
 | route               | description                                          
 |----------------------|-----------------------------------------------------
