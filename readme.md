@@ -1,3 +1,8 @@
+<p align="center">
+<a href="./readme.md">EN</a>
+|
+<a href="./readme_ru.md">RU</a>
+</p>
 
 <h1 align="center" style="font-weight: bold;">Effective Mobile Test Task 💻</h1>
 
@@ -15,6 +20,18 @@
 
 <p align="center">
 <a href="https://t.me/zamelane">📱 Contact with me</a>
+</p>
+
+<p align="center">
+<a href="https://docs.360.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FG%2FsBR6g5Su%2Bg4Zy0ZkTVj%2FfUwmFav9FA38Wj3Dl0fQUUMR8W8zrvMeqtM0mvyhBBskEAmkQ4kXOg0TR8ZsXayQ%3D%3D&name=ТЗ_Node.js.docx">📝 Technical specification</a>
+</p>
+
+<h2 id="layout">🎨 Layout</h2>
+
+<p align="center">
+
+<img src="https://picsum.photos/1080/1920" alt="Random Image" width="400px">
+<img src="https://picsum.photos/1080/1920" alt="Random Image" width="400px">
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>
@@ -124,39 +141,181 @@ For clarity, the prefix "/api" is omitted. Take this into account before using!
 ​
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>POST /login</kbd>     | authenticate user into the api see [request details](#login-detail)
-| <kbd>POST /registration</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>GET /users/:id</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>POST /users/:id</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>POST /users/:id/ban</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>POST /users/:id/unban</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
-| <kbd>GET /usersList/:page?pageSize={number}</kbd>     | authenticate user into the api see [request details](#post-auth-detail)
+| <kbd>POST /login</kbd> | User authentication in the system. For more information, see [the request details section](#login-detail).
+| <kbd>POST /registration</kbd> | Registration of a new user in the system. For more information, see [the request details section](#registration-detail).
+| <kbd>GET /users/:id</kbd> | Getting information about a specific user by their ID. For more information, see [the request details section](#get-user-detail).
+| <kbd>POST /users/:id</kbd> | Updating user profile data with the specified ID. For more information, see [the request details section](#update-user-detail).
+| <kbd>POST /users/:id/ban</kbd> | Blocking (ban) the user by ID. For more information, see [the request details section](#ban-user-detail).
+| <kbd>POST /users/:id/unban</kbd> | Unblocking (removing ban) a user by ID. For more information, see [the request details section](#unban-user-detail).
+| <kbd>GET /usersList/:page?pageSize={number}</kbd> | Getting a page-by-page list of users with the ability to specify the page size. For more information, see [the request details section](#users-list-detail).
 
-<h3 id="get-auth-detail">GET /authenticate</h3>
-
-**RESPONSE**
-```json
-{
-  "name": "Fernanda Kipper",
-  "age": 20,
-  "email": "her-email@gmail.com"
-}
-```
-
-<h3 id="post-auth-detail">POST /authenticate</h3>
+<h3 id="login-detail">POST /login</h3>
 
 **REQUEST**
 ```json
 {
-  "username": "fernandakipper",
-  "password": "4444444"
+  "email": "admin@admin.com",
+  "password": "admin!"
 }
 ```
 
 **RESPONSE**
 ```json
 {
-  "token": "OwoMRHsaQwyAgVoc3OXmL1JhMVUYXGGBbCTK0GBgiYitwQwjf0gVoBmkbuyy0pSi"
+  "userInfo": {
+    "id": 853,
+    "firstName": "Admin",
+    "lastName": "Adminovich",
+    "middleName": "",
+    "birthDate": "2010-10-09T00:00:00.000Z",
+    "email": "admin@admin.com",
+    "role": "admin",
+    "isActive": true,
+    "createdAt": "2025-08-19T15:59:26.943Z",
+    "updatedAt": "2025-08-19T15:59:26.943Z"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+<h3 id="registration-detail">POST /registration</h3>
+
+**REQUEST**
+```json
+{
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "password": "TestPass1!"
+}
+```
+
+**RESPONSE**
+```json
+{
+  "userInfo": {
+    "id": 956,
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "middleName": "Отчество",
+    "birthDate": "2025-08-01T00:00:00.000Z",
+    "email": "superTest@mail.ru",
+    "role": "user",
+    "isActive": true,
+    "createdAt": "2025-08-19T18:06:20.273Z",
+    "updatedAt": "2025-08-19T18:06:20.273Z"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+<h3 id="get-user-detail">GET /users/:id</h3>
+
+**RESPONSE**
+```json
+{
+  "id": 956,
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "role": "user",
+  "isActive": true,
+  "createdAt": "2025-08-19T18:06:20.273Z",
+  "updatedAt": "2025-08-19T18:06:20.273Z"
+}
+```
+
+<h3 id="update-user-detail">POST /users/:id</h3>
+
+**REQUEST**
+```json
+{
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru"
+}
+```
+
+**RESPONSE**
+```json
+{
+  "id": 956,
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "role": "user",
+  "isActive": true,
+  "createdAt": "2025-08-19T18:06:20.273Z",
+  "updatedAt": "2025-08-19T18:06:20.273Z"
+}
+```
+
+<h3 id="ban-user-detail">POST /users/:id/ban</h3>
+
+**RESPONSE**
+```json
+{
+  "id": 956,
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "middleName": "Отчество",
+  "birthDate": "2025-08-01T00:00:00.000Z",
+  "email": "superTest@mail.ru",
+  "role": "user",
+  "isActive": false,
+  "createdAt": "2025-08-19T18:06:20.273Z",
+  "updatedAt": "2025-08-19T18:06:20.273Z"
+}
+```
+
+<h3 id="unban-user-detail">POST /users/:id/unban</h3>
+
+**RESPONSE**
+```json
+{
+  "id": 855,
+  "firstName": "Андрей",
+  "lastName": "Васильев",
+  "middleName": "Петровна",
+  "birthDate": "1992-10-01T00:00:00.000Z",
+  "email": "peter.johnson.474@hotmail.com",
+  "role": "user",
+  "isActive": true,
+  "createdAt": "2025-08-19T15:59:27.046Z",
+  "updatedAt": "2025-08-19T15:59:27.046Z"
+}
+```
+
+<h3 id="users-list-detail">GET /usersList/:page?pageSize={number}</h3>
+
+**RESPONSE**
+```json
+{
+  "data": [
+    {
+      "id": 853,
+      "firstName": "Admin",
+      "lastName": "Adminovich",
+      "middleName": "",
+      "birthDate": "2010-10-09T00:00:00.000Z",
+      "email": "admin@admin.com",
+      "role": "admin",
+      "isActive": true,
+      "createdAt": "2025-08-19T15:59:26.943Z",
+      "updatedAt": "2025-08-19T15:59:26.943Z"
+    },
+    <...>
+  ],
+  "page": 1,
+  "pageSize": 8
 }
 ```
 
