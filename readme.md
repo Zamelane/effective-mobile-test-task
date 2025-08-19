@@ -30,14 +30,14 @@
 
 <p align="center">
 
-<kbd><img src="./.github/images/1.png" alt="Image" width="250px"></kbd>
-<kbd><img src="./.github/images/2.png" alt="Image" width="245px"></kbd>
-<kbd><img src="./.github/images/3.png" alt="Image" width="300px"></kbd>
-<kbd><img src="./.github/images/4.png" alt="Image" width="200px"></kbd>
-<kbd><img src="./.github/images/5.jpg" alt="Image" width="200px"></kbd>
-<kbd><img src="./.github/images/6.png" alt="Image" width="375px"></kbd>
-<kbd><img src="./.github/images/7.png" alt="Image" width="210px"></kbd>
-<kbd><img src="./.github/images/8.png" alt="Image" width="200px"></kbd>
+<kbd><img src="./.github/images/1.png" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/2.png" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/3.png" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/4.png" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/5.jpg" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/6.png" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/7.png" alt="Image" height="200px"></kbd>
+<kbd><img src="./.github/images/8.png" alt="Image" height="200px"></kbd>
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>
